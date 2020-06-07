@@ -27,13 +27,32 @@ namespace RayMarching
 		{
 			if (!Directory.Exists(".\\Pictures"))
 				Directory.CreateDirectory(".\\Pictures");
-			DefaultSettings(sender, e);
+			RMSettings.FromFile(this);
+			RMSettings.SettingEdit = false;
 			UpdateCamera(sender, e);
+		}
+
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (RMSettings.SettingEdit)
+			{
+				DialogResult dialogResult = MessageBox.Show("Save settings?", "Save settings?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+				switch (dialogResult)
+				{
+					case DialogResult.Yes:
+					RMSettings.ToFile(this);
+					break;
+
+					case DialogResult.Cancel:
+					e.Cancel = true;
+					break;
+				}
+			}
 		}
 
 		private void DefaultSettings(object sender, EventArgs e)
 		{
-			SaveCheckBox.Checked = false;
+			RMSettings.DefaultSettings(this);
 		}
 
 		private void UpdateCamera(object sender, EventArgs e)
@@ -80,6 +99,11 @@ namespace RayMarching
 				}
 			}
 			return bitmap;
+		}
+
+		private void SaveCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			RMSettings.SettingEdit = true;
 		}
 	}
 }

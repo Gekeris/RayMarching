@@ -52,6 +52,7 @@
 			this.SaveCheckBox.TabIndex = 1;
 			this.SaveCheckBox.Text = "Save";
 			this.SaveCheckBox.UseVisualStyleBackColor = true;
+			this.SaveCheckBox.CheckedChanged += new System.EventHandler(this.SaveCheckBox_CheckedChanged);
 			// 
 			// ResetButton
 			// 
@@ -86,6 +87,7 @@
 			this.MinimumSize = new System.Drawing.Size(900, 519);
 			this.Name = "Form1";
 			this.Text = "Form1";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).EndInit();
 			this.ResumeLayout(false);
@@ -96,7 +98,7 @@
 		#endregion
 
 		private System.Windows.Forms.PictureBox Camera1;
-		private System.Windows.Forms.CheckBox SaveCheckBox;
+		public System.Windows.Forms.CheckBox SaveCheckBox;
 		private System.Windows.Forms.Button ResetButton;
 		private System.Windows.Forms.Button UpdateButton;
 	}
