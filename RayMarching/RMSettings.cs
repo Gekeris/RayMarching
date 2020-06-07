@@ -9,11 +9,13 @@ namespace RayMarching
 {
 	static class RMSettings
 	{
-		public static bool SettingEdit;
+		public static bool SettingsEdit;
 
 		public static void DefaultSettings(Form1 form)
 		{
 			form.SaveCheckBox.Checked = false;
+			form.CameraPositionXNumericUpDown.Value = 0;
+			form.CameraPositionZNumericUpDown.Value = 0;
 		}
 
 		public static void FromFile(Form1 form)
@@ -31,6 +33,8 @@ namespace RayMarching
 					Settings.Add(tempSettings[i], tempSettings[i + 1]);
 
 				form.SaveCheckBox.Checked = bool.Parse(Settings["SaveCheckBox"]);
+				form.CameraPositionXNumericUpDown.Value = decimal.Parse(Settings["CameraPositionXNumericUpDown"]);
+				form.CameraPositionZNumericUpDown.Value = decimal.Parse(Settings["CameraPositionZNumericUpDown"]);
 			}
 		}
 
@@ -38,7 +42,9 @@ namespace RayMarching
 		{
 			using (StreamWriter sw = new StreamWriter("settings.txt", false, Encoding.UTF8))
 			{
-				sw.Write("SaveCheckBox=" + form.SaveCheckBox.Checked);
+				sw.WriteLine("SaveCheckBox=" + form.SaveCheckBox.Checked);
+				sw.WriteLine("CameraPositionXNumericUpDown=" + form.CameraPositionXNumericUpDown.Value);
+				sw.WriteLine("CameraPositionZNumericUpDown=" + form.CameraPositionZNumericUpDown.Value);
 			}
 		}
 	}

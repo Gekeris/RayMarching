@@ -18,6 +18,7 @@ namespace RayMarching
 	{
 		const int CameraW = 640;
 		const int CameraH = 480;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -27,14 +28,15 @@ namespace RayMarching
 		{
 			if (!Directory.Exists(".\\Pictures"))
 				Directory.CreateDirectory(".\\Pictures");
+			Camera.Initialize(Convert.ToDouble(CameraPositionXNumericUpDown.Value), Convert.ToDouble(CameraPositionZNumericUpDown.Value));
 			RMSettings.FromFile(this);
-			RMSettings.SettingEdit = false;
+			RMSettings.SettingsEdit = false;
 			UpdateCamera(sender, e);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (RMSettings.SettingEdit)
+			if (RMSettings.SettingsEdit)
 			{
 				DialogResult dialogResult = MessageBox.Show("Save settings?", "Save settings?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 				switch (dialogResult)
@@ -63,23 +65,16 @@ namespace RayMarching
 		private Bitmap CreateBitmap()
 		{
 			Bitmap bitmap = new Bitmap(CameraW, CameraH);
-			Random rand = new Random();
-			for (int y = 0; y < CameraH; y++)
-			{
-				for (int x = 0; x < CameraW; x++)
-				{
-					int red = rand.Next(256);
-					int green = rand.Next(256);
-					int blue = rand.Next(256);
 
-					bitmap.SetPixel(x, y, Color.FromArgb(red, green, blue));
-				}
-			}
+			for (int y = 0; y < CameraH; y++)
+				for (int x = 0; x < CameraW; x++)
+					bitmap.SetPixel(x, y, RayRM(x, y));
+
 			if (SaveCheckBox.Checked)
 			{
 				DateTime thisDay = DateTime.Now;
 				string path = ".\\Pictures\\" + thisDay.Year + "_" + ZeroCheck(thisDay.Month) + ZeroCheck(thisDay.Day) + ZeroCheck(thisDay.Hour) + ZeroCheck(thisDay.Minute) + ZeroCheck(thisDay.Second);
-				for(int i = 0; i >=0; i++)
+				for (int i = 0; i >= 0; i++)
 				{
 					if (!File.Exists(path + i + ".bmp"))
 					{
@@ -101,9 +96,14 @@ namespace RayMarching
 			return bitmap;
 		}
 
-		private void SaveCheckBox_CheckedChanged(object sender, EventArgs e)
+		private Color RayRM(int x, int y)
 		{
-			RMSettings.SettingEdit = true;
+			return Color.FromArgb(0, 111, 0);
+		}
+
+		private void SettingsEdit(object sender, EventArgs e)
+		{
+			RMSettings.SettingsEdit = true;
 		}
 	}
 }
