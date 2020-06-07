@@ -1,0 +1,10 @@
+D:\Visual Studio\RayMarching\RayMarching\bin\Debug\RayMarching.exe.config
+D:\Visual Studio\RayMarching\RayMarching\bin\Debug\RayMarching.exe
+D:\Visual Studio\RayMarching\RayMarching\bin\Debug\RayMarching.pdb
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.csprojAssemblyReference.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.Form1.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.Properties.Resources.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.csproj.GenerateResource.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.csproj.CoreCompileInputs.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.exe
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.pdb
