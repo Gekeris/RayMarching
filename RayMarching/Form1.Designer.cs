@@ -35,9 +35,12 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.CameraPositionXNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.CameraPositionYNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.CameraPositionZNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionXNumericUpDown)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.CameraPositionYNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionZNumericUpDown)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -96,7 +99,7 @@
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(87, 13);
 			this.label2.TabIndex = 7;
-			this.label2.Text = "CameraPositionZ";
+			this.label2.Text = "CameraPositionY";
 			// 
 			// CameraPositionXNumericUpDown
 			// 
@@ -118,6 +121,26 @@
 			this.CameraPositionXNumericUpDown.ThousandsSeparator = true;
 			this.CameraPositionXNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
+			// CameraPositionYNumericUpDown
+			// 
+			this.CameraPositionYNumericUpDown.DecimalPlaces = 3;
+			this.CameraPositionYNumericUpDown.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+			this.CameraPositionYNumericUpDown.Location = new System.Drawing.Point(752, 63);
+			this.CameraPositionYNumericUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.CameraPositionYNumericUpDown.Name = "CameraPositionYNumericUpDown";
+			this.CameraPositionYNumericUpDown.Size = new System.Drawing.Size(120, 20);
+			this.CameraPositionYNumericUpDown.TabIndex = 11;
+			this.CameraPositionYNumericUpDown.ThousandsSeparator = true;
+			this.CameraPositionYNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
+			// 
 			// CameraPositionZNumericUpDown
 			// 
 			this.CameraPositionZNumericUpDown.DecimalPlaces = 3;
@@ -126,7 +149,7 @@
             0,
             0,
             65536});
-			this.CameraPositionZNumericUpDown.Location = new System.Drawing.Point(752, 63);
+			this.CameraPositionZNumericUpDown.Location = new System.Drawing.Point(752, 89);
 			this.CameraPositionZNumericUpDown.Maximum = new decimal(new int[] {
             10,
             0,
@@ -134,9 +157,17 @@
             0});
 			this.CameraPositionZNumericUpDown.Name = "CameraPositionZNumericUpDown";
 			this.CameraPositionZNumericUpDown.Size = new System.Drawing.Size(120, 20);
-			this.CameraPositionZNumericUpDown.TabIndex = 11;
+			this.CameraPositionZNumericUpDown.TabIndex = 13;
 			this.CameraPositionZNumericUpDown.ThousandsSeparator = true;
-			this.CameraPositionZNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(659, 91);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(87, 13);
+			this.label3.TabIndex = 12;
+			this.label3.Text = "CameraPositionZ";
 			// 
 			// Form1
 			// 
@@ -144,6 +175,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(884, 480);
 			this.Controls.Add(this.CameraPositionZNumericUpDown);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.CameraPositionYNumericUpDown);
 			this.Controls.Add(this.CameraPositionXNumericUpDown);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
@@ -159,6 +192,7 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionXNumericUpDown)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.CameraPositionYNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionZNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -174,7 +208,9 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		public System.Windows.Forms.NumericUpDown CameraPositionXNumericUpDown;
+		public System.Windows.Forms.NumericUpDown CameraPositionYNumericUpDown;
 		public System.Windows.Forms.NumericUpDown CameraPositionZNumericUpDown;
+		private System.Windows.Forms.Label label3;
 	}
 }
 

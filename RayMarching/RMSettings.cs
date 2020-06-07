@@ -15,6 +15,7 @@ namespace RayMarching
 		{
 			form.SaveCheckBox.Checked = false;
 			form.CameraPositionXNumericUpDown.Value = 0;
+			form.CameraPositionYNumericUpDown.Value = 0;
 			form.CameraPositionZNumericUpDown.Value = 0;
 		}
 
@@ -34,6 +35,7 @@ namespace RayMarching
 
 				form.SaveCheckBox.Checked = bool.Parse(Settings["SaveCheckBox"]);
 				form.CameraPositionXNumericUpDown.Value = decimal.Parse(Settings["CameraPositionXNumericUpDown"]);
+				form.CameraPositionYNumericUpDown.Value = decimal.Parse(Settings["CameraPositionYNumericUpDown"]);
 				form.CameraPositionZNumericUpDown.Value = decimal.Parse(Settings["CameraPositionZNumericUpDown"]);
 			}
 		}
@@ -44,6 +46,7 @@ namespace RayMarching
 			{
 				sw.WriteLine("SaveCheckBox=" + form.SaveCheckBox.Checked);
 				sw.WriteLine("CameraPositionXNumericUpDown=" + form.CameraPositionXNumericUpDown.Value);
+				sw.WriteLine("CameraPositionYNumericUpDown=" + form.CameraPositionYNumericUpDown.Value);
 				sw.WriteLine("CameraPositionZNumericUpDown=" + form.CameraPositionZNumericUpDown.Value);
 			}
 		}

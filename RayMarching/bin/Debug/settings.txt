@@ -1,3 +1,4 @@
 ﻿SaveCheckBox=False
 CameraPositionXNumericUpDown=0
+CameraPositionYNumericUpDown=0
 CameraPositionZNumericUpDown=0

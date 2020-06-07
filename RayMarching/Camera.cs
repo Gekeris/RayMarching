@@ -9,13 +9,12 @@ namespace RayMarching
 {
 	static class Camera
 	{
-		public static double CameraPosX;
-		public static double CameraPosZ;
-
-		public static void Initialize(double CameraPosX, double CameraPosZ)
+		public static Coordinate CameraPos;
+		public static Vector CameraVec;
+		public static void Initialize(double CameraPosX, double CameraPosY, double CameraPosZ)
 		{
-			Camera.CameraPosX = CameraPosX;
-			Camera.CameraPosZ = CameraPosZ;
+			CameraPos = new Coordinate(CameraPosX, CameraPosY, CameraPosZ);
+			CameraVec = Vector.GetVect(CameraPos, new Coordinate(5, 0, 5));
 		}
 	}
 }

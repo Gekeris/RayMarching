@@ -28,7 +28,7 @@ namespace RayMarching
 		{
 			if (!Directory.Exists(".\\Pictures"))
 				Directory.CreateDirectory(".\\Pictures");
-			Camera.Initialize(Convert.ToDouble(CameraPositionXNumericUpDown.Value), Convert.ToDouble(CameraPositionZNumericUpDown.Value));
+			Camera.Initialize(Convert.ToDouble(CameraPositionXNumericUpDown.Value), Convert.ToDouble(CameraPositionYNumericUpDown.Value), Convert.ToDouble(CameraPositionZNumericUpDown.Value));
 			RMSettings.FromFile(this);
 			RMSettings.SettingsEdit = false;
 			UpdateCamera(sender, e);
