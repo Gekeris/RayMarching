@@ -17,5 +17,12 @@ namespace RayMarching
 			this.y = y;
 			this.z = z;
 		}
+		public static Coordinate operator +(Coordinate coord, Vector vect)
+		{
+			coord.x += vect.x;
+			coord.y += vect.y;
+			coord.z += vect.z;
+			return coord;
+		}
 	}
 }
