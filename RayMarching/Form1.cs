@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Drawing.Text;
 
 namespace RayMarching
 {
 	public partial class Form1 : Form
 	{
-
+		List<Coordinate> objectList = new List<Coordinate>();
 
 		public Form1()
 		{
@@ -25,6 +17,7 @@ namespace RayMarching
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			objectList.Add(new Coordinate(5, 1, 5));
 			if (!Directory.Exists(".\\Pictures"))
 				Directory.CreateDirectory(".\\Pictures");
 			RMSettings.FromFile(this);
@@ -96,7 +89,6 @@ namespace RayMarching
 			}
 			return bitmap;
 		}
-
 		private Color RayRM(int x, int y)
 		{
 			double dx = -1 * ((2 * (double) x / Camera.Width) - 1);
@@ -109,12 +101,8 @@ namespace RayMarching
 			rayVector.z = (Camera.Basis[2].x * 1) + (Camera.Basis[2].y * dx) + (Camera.Basis[2].z * dz);
 			rayVector = Vector.Normalize(rayVector);
 
-			int a;
-			if ((x == 380) && (y == 300))
-				a = 1;
-
 			Coordinate rayCoord = new Coordinate(Camera.Position.x, Camera.Position.y, Camera.Position.z);
-			decimal i = 0;
+			decimal i = 1;
 			while (true)
 			{
 				object obj = GetMinDist(rayCoord);
@@ -122,7 +110,7 @@ namespace RayMarching
 					return (Color) obj;
 				else
 					rayCoord += rayVector * (double) obj;
-				if (i > MaxIterationNumericUpDown.Value)
+				if (i >= MaxIterationNumericUpDown.Value)
 					return Color.FromArgb(20, 20, 20);
 				i++;
 			}
@@ -130,21 +118,32 @@ namespace RayMarching
 
 		private object GetMinDist(Coordinate coord)
 		{
-			Coordinate sphere = new Coordinate(0, 0, 0);
-			Vector ddd = Vector.GetVect(coord, sphere);
-			double sphereDist = Vector.length(ddd) - 3;
-			if (sphereDist < Convert.ToDouble(MinDistNumericUpDown.Value))
+			bool bocool = false;
+			double minDist = coord.y;
+			foreach (Coordinate coordinate in objectList)
+			{
+				double temp = Vector.length(Vector.GetVect(coordinate, coord));
+				if (temp - 1 < minDist)
+				{
+					minDist = temp - 1;
+					bocool = true;
+				}
+			}
+
+			if ((minDist <= Convert.ToDouble(MinDistNumericUpDown.Value)) && (bocool))
 				return Color.FromArgb(0, 111, 0);
-			if (coord.y < 0)
+
+			if (coord.y < Convert.ToDouble(MinDistNumericUpDown.Value))
 			{
 				double tempX = coord.x % 1;
 				double tempZ = coord.z % 1;
 
-				if (((tempX >= -0.1) &&(tempX <= 0.1)) || ((tempZ >= -0.1) && (tempZ <= 0.1)))
+				if (((tempX >= -0.1) && (tempX <= 0.1)) || ((tempZ >= -0.1) && (tempZ <= 0.1)))
 					return Color.FromArgb(140, 140, 140);
 				return Color.FromArgb(200, 200, 200);
 			}
-			return sphereDist;
+
+			return minDist;
 		}
 
 		private void SettingsEdit(object sender, EventArgs e)

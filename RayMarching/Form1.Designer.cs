@@ -356,10 +356,10 @@
             262144});
 			this.MinDistNumericUpDown.Location = new System.Drawing.Point(752, 246);
 			this.MinDistNumericUpDown.Maximum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
-            0});
+            196608});
 			this.MinDistNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -370,10 +370,10 @@
 			this.MinDistNumericUpDown.TabIndex = 25;
 			this.MinDistNumericUpDown.Tag = "";
 			this.MinDistNumericUpDown.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
-            0});
+            196608});
 			// 
 			// Form1
 			// 

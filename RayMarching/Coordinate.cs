@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RayMarching
+﻿namespace RayMarching
 {
 	class Coordinate
 	{
@@ -19,10 +13,11 @@ namespace RayMarching
 		}
 		public static Coordinate operator +(Coordinate coord, Vector vect)
 		{
-			coord.x += vect.x;
-			coord.y += vect.y;
-			coord.z += vect.z;
-			return coord;
+			Coordinate newCoord = new Coordinate(coord.x, coord.y, coord.z);
+			newCoord.x += vect.x;
+			newCoord.y += vect.y;
+			newCoord.z += vect.z;
+			return newCoord;
 		}
 	}
 }
