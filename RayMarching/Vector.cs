@@ -15,19 +15,19 @@ namespace RayMarching
 			this.z = z;
 		}
 
-		public static Vector GetVect(Coordinate from, Coordinate to)
+		public static Vector GetVect(Coordinate from, Coordinate to) // Расстояние между точками
 		{
 			return new Vector(to.x - from.x, to.y - from.y, to.z - from.z);
 		}
 
-		public static Vector Normalize(Vector vect)
+		public static Vector Normalize(Vector vect) // Нормализация вектора(длина = 1)
 		{
 			Vector newVect = new Vector(vect.x, vect.y, vect.z);
 			newVect *= 1 / length(newVect);
 			return newVect;
 		}
 
-		public static Vector operator *(Vector vect, double num)
+		public static Vector operator *(Vector vect, double num) // Умножение вектора на число
 		{
 			double x = vect.x * num;
 			double y = vect.y * num;
@@ -35,7 +35,7 @@ namespace RayMarching
 			return new Vector(x, y, z);
 		}
 
-		public static double length(Vector vect)
+		public static double length(Vector vect) // Длина вектора
 		{
 			return Math.Sqrt(vect.x * vect.x + vect.y * vect.y + vect.z * vect.z);
 		}

@@ -11,7 +11,7 @@
 			this.y = y;
 			this.z = z;
 		}
-		public static Coordinate operator +(Coordinate coord, Vector vect)
+		public static Coordinate operator +(Coordinate coord, Vector vect) // Перемещение координаты на вектор
 		{
 			Coordinate newCoord = new Coordinate(coord.x, coord.y, coord.z);
 			newCoord.x += vect.x;

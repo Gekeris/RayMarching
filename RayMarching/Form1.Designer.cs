@@ -30,7 +30,7 @@
 		{
 			this.Camera1 = new System.Windows.Forms.PictureBox();
 			this.SaveCheckBox = new System.Windows.Forms.CheckBox();
-			this.ResetButton = new System.Windows.Forms.Button();
+			this.ResetToDefButton = new System.Windows.Forms.Button();
 			this.UpdateButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -44,12 +44,12 @@
 			this.CameraLookAtXNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.CameraLookAtYNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.CameraLookAtZNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.LineOfSightNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.label7 = new System.Windows.Forms.Label();
-			this.label8 = new System.Windows.Forms.Label();
 			this.MaxIterationNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.label9 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
 			this.MinDistNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.ResetButton = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionXNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraPositionYNumericUpDown)).BeginInit();
@@ -57,7 +57,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtXNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtYNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtZNumericUpDown)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.LineOfSightNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MaxIterationNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MinDistNumericUpDown)).BeginInit();
 			this.SuspendLayout();
@@ -81,19 +80,19 @@
 			this.SaveCheckBox.UseVisualStyleBackColor = true;
 			this.SaveCheckBox.CheckedChanged += new System.EventHandler(this.SettingsEdit);
 			// 
-			// ResetButton
+			// ResetToDefButton
 			// 
-			this.ResetButton.Location = new System.Drawing.Point(780, 445);
-			this.ResetButton.Name = "ResetButton";
-			this.ResetButton.Size = new System.Drawing.Size(92, 23);
-			this.ResetButton.TabIndex = 2;
-			this.ResetButton.Text = "Reset to default";
-			this.ResetButton.UseVisualStyleBackColor = true;
-			this.ResetButton.Click += new System.EventHandler(this.DefaultSettings);
+			this.ResetToDefButton.Location = new System.Drawing.Point(780, 445);
+			this.ResetToDefButton.Name = "ResetToDefButton";
+			this.ResetToDefButton.Size = new System.Drawing.Size(92, 23);
+			this.ResetToDefButton.TabIndex = 2;
+			this.ResetToDefButton.Text = "Reset to default";
+			this.ResetToDefButton.UseVisualStyleBackColor = true;
+			this.ResetToDefButton.Click += new System.EventHandler(this.DefaultSettings);
 			// 
 			// UpdateButton
 			// 
-			this.UpdateButton.Location = new System.Drawing.Point(646, 445);
+			this.UpdateButton.Location = new System.Drawing.Point(658, 8);
 			this.UpdateButton.Name = "UpdateButton";
 			this.UpdateButton.Size = new System.Drawing.Size(75, 23);
 			this.UpdateButton.TabIndex = 3;
@@ -272,51 +271,18 @@
 			this.CameraLookAtZNumericUpDown.TabIndex = 19;
 			this.CameraLookAtZNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
-			// LineOfSightNumericUpDown
-			// 
-			this.LineOfSightNumericUpDown.Location = new System.Drawing.Point(752, 194);
-			this.LineOfSightNumericUpDown.Maximum = new decimal(new int[] {
-            89,
-            0,
-            0,
-            0});
-			this.LineOfSightNumericUpDown.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.LineOfSightNumericUpDown.Name = "LineOfSightNumericUpDown";
-			this.LineOfSightNumericUpDown.Size = new System.Drawing.Size(120, 20);
-			this.LineOfSightNumericUpDown.TabIndex = 20;
-			this.LineOfSightNumericUpDown.Tag = "";
-			this.LineOfSightNumericUpDown.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.LineOfSightNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
-			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(682, 196);
+			this.label7.Location = new System.Drawing.Point(681, 195);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(64, 13);
-			this.label7.TabIndex = 21;
-			this.label7.Text = "Line of sight";
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(681, 222);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(65, 13);
-			this.label8.TabIndex = 22;
-			this.label8.Text = "MaxIteration";
+			this.label7.Size = new System.Drawing.Size(65, 13);
+			this.label7.TabIndex = 22;
+			this.label7.Text = "MaxIteration";
 			// 
 			// MaxIterationNumericUpDown
 			// 
-			this.MaxIterationNumericUpDown.Location = new System.Drawing.Point(752, 220);
+			this.MaxIterationNumericUpDown.Location = new System.Drawing.Point(752, 193);
 			this.MaxIterationNumericUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -337,14 +303,14 @@
             0,
             0});
 			// 
-			// label9
+			// label8
 			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(655, 248);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(91, 13);
-			this.label9.TabIndex = 24;
-			this.label9.Text = "Minimum distance";
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(655, 221);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(91, 13);
+			this.label8.TabIndex = 24;
+			this.label8.Text = "Minimum distance";
 			// 
 			// MinDistNumericUpDown
 			// 
@@ -354,7 +320,7 @@
             0,
             0,
             262144});
-			this.MinDistNumericUpDown.Location = new System.Drawing.Point(752, 246);
+			this.MinDistNumericUpDown.Location = new System.Drawing.Point(752, 219);
 			this.MinDistNumericUpDown.Maximum = new decimal(new int[] {
             5,
             0,
@@ -375,17 +341,37 @@
             0,
             196608});
 			// 
+			// ResetButton
+			// 
+			this.ResetButton.Location = new System.Drawing.Point(780, 416);
+			this.ResetButton.Name = "ResetButton";
+			this.ResetButton.Size = new System.Drawing.Size(92, 23);
+			this.ResetButton.TabIndex = 26;
+			this.ResetButton.Text = "Reset settings";
+			this.ResetButton.UseVisualStyleBackColor = true;
+			this.ResetButton.Click += new System.EventHandler(this.ResetSettings);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(780, 387);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(92, 23);
+			this.button2.TabIndex = 27;
+			this.button2.Text = "Save settings";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.SaveSettings);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(884, 480);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.ResetButton);
 			this.Controls.Add(this.MinDistNumericUpDown);
-			this.Controls.Add(this.label9);
-			this.Controls.Add(this.MaxIterationNumericUpDown);
 			this.Controls.Add(this.label8);
+			this.Controls.Add(this.MaxIterationNumericUpDown);
 			this.Controls.Add(this.label7);
-			this.Controls.Add(this.LineOfSightNumericUpDown);
 			this.Controls.Add(this.CameraLookAtZNumericUpDown);
 			this.Controls.Add(this.CameraLookAtYNumericUpDown);
 			this.Controls.Add(this.CameraLookAtXNumericUpDown);
@@ -399,7 +385,7 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.UpdateButton);
-			this.Controls.Add(this.ResetButton);
+			this.Controls.Add(this.ResetToDefButton);
 			this.Controls.Add(this.SaveCheckBox);
 			this.Controls.Add(this.Camera1);
 			this.MaximumSize = new System.Drawing.Size(900, 519);
@@ -415,7 +401,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtXNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtYNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraLookAtZNumericUpDown)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.LineOfSightNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.MaxIterationNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.MinDistNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
@@ -427,7 +412,7 @@
 
 		private System.Windows.Forms.PictureBox Camera1;
 		public System.Windows.Forms.CheckBox SaveCheckBox;
-		private System.Windows.Forms.Button ResetButton;
+		private System.Windows.Forms.Button ResetToDefButton;
 		private System.Windows.Forms.Button UpdateButton;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
@@ -441,12 +426,12 @@
 		public System.Windows.Forms.NumericUpDown CameraLookAtXNumericUpDown;
 		public System.Windows.Forms.NumericUpDown CameraLookAtYNumericUpDown;
 		public System.Windows.Forms.NumericUpDown CameraLookAtZNumericUpDown;
-		public System.Windows.Forms.NumericUpDown LineOfSightNumericUpDown;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Label label8;
 		public System.Windows.Forms.NumericUpDown MaxIterationNumericUpDown;
-		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label8;
 		public System.Windows.Forms.NumericUpDown MinDistNumericUpDown;
+		private System.Windows.Forms.Button ResetButton;
+		private System.Windows.Forms.Button button2;
 	}
 }
 
