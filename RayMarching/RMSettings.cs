@@ -10,8 +10,6 @@ namespace RayMarching
 
 		public static void DefaultSettings(Form1 form) // Стандартные настройки
 		{
-			form.SaveCheckBox.Checked = false;
-
 			form.CameraPositionXNumericUpDown.Value = 0;
 			form.CameraPositionYNumericUpDown.Value = 5;
 			form.CameraPositionZNumericUpDown.Value = 0;
@@ -22,6 +20,9 @@ namespace RayMarching
 
 			form.MaxIterationNumericUpDown.Value = 40;
 			form.MinDistNumericUpDown.Value = 0.0001m;
+
+			form.OrRadioButton.Checked = true;
+			form.AndRadioButton.Checked = false;
 		}
 
 		public static void FromFile(Form1 form) // Загрузка настроек с файла
@@ -38,8 +39,6 @@ namespace RayMarching
 				for (int i = 0; i < tempSettings.Length; i += 2) // Заполнение словаря. Первая строка название переменной (ключ), вторая значение в string
 					Settings.Add(tempSettings[i], tempSettings[i + 1]);
 			}
-			form.SaveCheckBox.Checked = bool.Parse(Settings["SaveCheckBox"]);
-
 			form.CameraPositionXNumericUpDown.Value = decimal.Parse(Settings["CameraPositionXNumericUpDown"]);
 			form.CameraPositionYNumericUpDown.Value = decimal.Parse(Settings["CameraPositionYNumericUpDown"]);
 			form.CameraPositionZNumericUpDown.Value = decimal.Parse(Settings["CameraPositionZNumericUpDown"]);
@@ -50,14 +49,15 @@ namespace RayMarching
 
 			form.MaxIterationNumericUpDown.Value = decimal.Parse(Settings["MaxIterationNumericUpDown"]);
 			form.MinDistNumericUpDown.Value = decimal.Parse(Settings["MinDistNumericUpDown"]);
+
+			form.OrRadioButton.Checked = bool.Parse(Settings["OrRadioButton"]);
+			form.AndRadioButton.Checked = bool.Parse(Settings["AndRadioButton"]);
 		}
 
 		public static void ToFile(Form1 form) // Записать настройки в файл
 		{
 			using (StreamWriter sw = new StreamWriter("settings.txt", false, Encoding.UTF8))
 			{
-				sw.WriteLine("SaveCheckBox=" + form.SaveCheckBox.Checked);
-
 				sw.WriteLine("CameraPositionXNumericUpDown=" + form.CameraPositionXNumericUpDown.Value);
 				sw.WriteLine("CameraPositionYNumericUpDown=" + form.CameraPositionYNumericUpDown.Value);
 				sw.WriteLine("CameraPositionZNumericUpDown=" + form.CameraPositionZNumericUpDown.Value);
@@ -68,6 +68,9 @@ namespace RayMarching
 
 				sw.WriteLine("MaxIterationNumericUpDown=" + form.MaxIterationNumericUpDown.Value);
 				sw.WriteLine("MinDistNumericUpDown=" + form.MinDistNumericUpDown.Value);
+
+				sw.WriteLine("OrRadioButton=" + form.OrRadioButton.Checked);
+				sw.WriteLine("AndRadioButton=" + form.AndRadioButton.Checked);
 			}
 		}
 	}

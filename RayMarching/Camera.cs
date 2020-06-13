@@ -31,11 +31,11 @@ namespace RayMarching
 
 			vector = Vector.Normalize(vector); // Нормализируем вектор
 
-			double x1 = vector.x;
+			double x1 = vector.x; // Начальный вектор
 			double y1 = vector.y;
 			double z1 = vector.z;
 
-			double z2 = ((double) Width / Height) * Math.Sqrt((x1 * x1) / (z1 * z1 + x1 * x1)); // Documents/doc1.doc
+			double z2 = ((double) Width / Height) * Math.Sqrt((x1 * x1) / (z1 * z1 + x1 * x1)); // Вектор параллелен плоскостям X и Z и перпендикулярен начальному вектору
 			double x2 = -1 * (z1 * z2) / x1;
 
 			if ((x1 > 0) && (z2 > 0))
@@ -44,7 +44,8 @@ namespace RayMarching
 				x2 *= -1;
 			}
 
-			double x3 = 1 / Math.Sqrt((x1 * x1) / (y1 * y1) - ((2 * x1 * x2 * z1) / (y1 * y1 * z2)) + ((x2 * x2 * z1 * z1) / (y1 * y1 * z2 * z2)) + ((x2 * x2) / (z2 * z2)) + 1); // Documents/doc2.doc
+			// Вектор параллельный первому и второму
+			double x3 = 1 / Math.Sqrt((x1 * x1) / (y1 * y1) - ((2 * x1 * x2 * z1) / (y1 * y1 * z2)) + ((x2 * x2 * z1 * z1) / (y1 * y1 * z2 * z2)) + ((x2 * x2) / (z2 * z2)) + 1); 
 			double y3 = (x3 * z1 * x2 - x1 * x3 * z2) / (y1 * z2);
 			double z3 = -1 * ((x2 * x3) / z2);
 

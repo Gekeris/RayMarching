@@ -19,5 +19,10 @@
 			newCoord.z += vect.z;
 			return newCoord;
 		}
+
+		public static double CoordGetDist(Coordinate coordinate1, Coordinate coordinate2)
+		{
+			return Vector.length(Vector.GetVect(coordinate1, coordinate2));
+		}
 	}
 }
