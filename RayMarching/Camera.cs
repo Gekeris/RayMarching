@@ -6,16 +6,14 @@ namespace RayMarching
 	{
 		public const int Width = 640; // Ширина
 		public const int Height = 480; // Высота
-		public static Coordinate Position; // Позиция
+		public static Coordinate Position = new Coordinate(0, 0, 0); // Позиция
+		public static Coordinate LookAt = new Coordinate(0, 0, 0); // Точка куда смотрит
 		public static Vector[] Basis; // Базис
 
-		public static void Initialize(Form1 form) // Фиксирование позиции камеры и Создание базиса камеры 
+		public static void Initialize() // Фиксирование позиции камеры и Создание базиса камеры 
 		{
-			// Положение камеры по x y z
-			Position = new Coordinate(Convert.ToDouble(form.CameraPositionXNumericUpDown.Value), Convert.ToDouble(form.CameraPositionYNumericUpDown.Value), Convert.ToDouble(form.CameraPositionZNumericUpDown.Value));
-
 			// Расстояние от камеры до точки, на которую она смотрит
-			Vector vector = Vector.Normalize(Vector.GetVect(Position, new Coordinate(Convert.ToDouble(form.CameraLookAtXNumericUpDown.Value), Convert.ToDouble(form.CameraLookAtYNumericUpDown.Value), Convert.ToDouble(form.CameraLookAtZNumericUpDown.Value))));
+			Vector vector = Vector.Normalize(Vector.GetVect(Position, LookAt));
 			
 			// Если x1 ~= 0, изменяем его
 			if ((vector.x >= 0) && (vector.x < 0.0001))
@@ -44,7 +42,7 @@ namespace RayMarching
 				x2 *= -1;
 			}
 
-			// Вектор параллельный первому и второму
+			// Вычисление вектора, перпендикулярного первому и второму
 			double x3 = 1 / Math.Sqrt((x1 * x1) / (y1 * y1) - ((2 * x1 * x2 * z1) / (y1 * y1 * z2)) + ((x2 * x2 * z1 * z1) / (y1 * y1 * z2 * z2)) + ((x2 * x2) / (z2 * z2)) + 1); 
 			double y3 = (x3 * z1 * x2 - x1 * x3 * z2) / (y1 * z2);
 			double z3 = -1 * ((x2 * x3) / z2);

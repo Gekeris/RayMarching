@@ -10,13 +10,13 @@ namespace RayMarching
 
 		public static void DefaultSettings(Form1 form) // Стандартные настройки
 		{
-			form.CameraPositionXNumericUpDown.Value = 0;
-			form.CameraPositionYNumericUpDown.Value = 5;
-			form.CameraPositionZNumericUpDown.Value = 0;
+			Camera.Position.x = 0;
+			Camera.Position.y = 5;
+			Camera.Position.z = 0;
 
-			form.CameraLookAtXNumericUpDown.Value = 5;
-			form.CameraLookAtYNumericUpDown.Value = 0;
-			form.CameraLookAtZNumericUpDown.Value = 5;
+			Camera.LookAt.x = 5;
+			Camera.LookAt.y = 0;
+			Camera.LookAt.z = 5;
 
 			form.MaxIterationNumericUpDown.Value = 40;
 			form.MinDistNumericUpDown.Value = 0.0001m;
@@ -39,13 +39,13 @@ namespace RayMarching
 				for (int i = 0; i < tempSettings.Length; i += 2) // Заполнение словаря. Первая строка название переменной (ключ), вторая значение в string
 					Settings.Add(tempSettings[i], tempSettings[i + 1]);
 			}
-			form.CameraPositionXNumericUpDown.Value = decimal.Parse(Settings["CameraPositionXNumericUpDown"]);
-			form.CameraPositionYNumericUpDown.Value = decimal.Parse(Settings["CameraPositionYNumericUpDown"]);
-			form.CameraPositionZNumericUpDown.Value = decimal.Parse(Settings["CameraPositionZNumericUpDown"]);
+			Camera.Position.x = double.Parse(Settings["CameraPositionX"]);
+			Camera.Position.y = double.Parse(Settings["CameraPositionY"]);
+			Camera.Position.z = double.Parse(Settings["CameraPositionZ"]);
 
-			form.CameraLookAtXNumericUpDown.Value = decimal.Parse(Settings["CameraLookAtXNumericUpDown"]);
-			form.CameraLookAtYNumericUpDown.Value = decimal.Parse(Settings["CameraLookAtYNumericUpDown"]);
-			form.CameraLookAtZNumericUpDown.Value = decimal.Parse(Settings["CameraLookAtZNumericUpDown"]);
+			Camera.LookAt.x = double.Parse(Settings["CameraLookAtX"]);
+			Camera.LookAt.y = double.Parse(Settings["CameraLookAtY"]);
+			Camera.LookAt.z = double.Parse(Settings["CameraLookAtZ"]);
 
 			form.MaxIterationNumericUpDown.Value = decimal.Parse(Settings["MaxIterationNumericUpDown"]);
 			form.MinDistNumericUpDown.Value = decimal.Parse(Settings["MinDistNumericUpDown"]);
@@ -58,13 +58,13 @@ namespace RayMarching
 		{
 			using (StreamWriter sw = new StreamWriter("settings.txt", false, Encoding.UTF8))
 			{
-				sw.WriteLine("CameraPositionXNumericUpDown=" + form.CameraPositionXNumericUpDown.Value);
-				sw.WriteLine("CameraPositionYNumericUpDown=" + form.CameraPositionYNumericUpDown.Value);
-				sw.WriteLine("CameraPositionZNumericUpDown=" + form.CameraPositionZNumericUpDown.Value);
+				sw.WriteLine("CameraPositionX=" + Camera.Position.x);
+				sw.WriteLine("CameraPositionY=" + Camera.Position.y);
+				sw.WriteLine("CameraPositionZ=" + Camera.Position.z);
 
-				sw.WriteLine("CameraLookAtXNumericUpDown=" + form.CameraLookAtXNumericUpDown.Value);
-				sw.WriteLine("CameraLookAtYNumericUpDown=" + form.CameraLookAtYNumericUpDown.Value);
-				sw.WriteLine("CameraLookAtZNumericUpDown=" + form.CameraLookAtZNumericUpDown.Value);
+				sw.WriteLine("CameraLookAtX=" + Camera.LookAt.x);
+				sw.WriteLine("CameraLookAtY=" + Camera.LookAt.y);
+				sw.WriteLine("CameraLookAtZ=" + Camera.LookAt.z);
 
 				sw.WriteLine("MaxIterationNumericUpDown=" + form.MaxIterationNumericUpDown.Value);
 				sw.WriteLine("MinDistNumericUpDown=" + form.MinDistNumericUpDown.Value);

@@ -52,7 +52,7 @@ namespace RayMarching
 
 		private void UpdateCamera(object sender, EventArgs e) // Отрисовка камеры
 		{
-			Camera.Initialize(this); // Создать базис
+			Camera.Initialize(); // Создать базис
 			Camera1.Image = CreateBitmap(); // Отрисовка изображения камеры
 		}
 
@@ -133,7 +133,7 @@ namespace RayMarching
 
 		private void SaveScreenPicture_Click(object sender, EventArgs e)
 		{
-			if (!Directory.Exists(".\\Pictures")) // Если нету директории кудо сохранять, создаём её
+			if (!Directory.Exists(".\\Pictures")) // Если нету директории куда сохранять, создаём её
 				Directory.CreateDirectory(".\\Pictures");
 
 			DateTime thisDay = DateTime.Now; // Текущее время
@@ -154,6 +154,14 @@ namespace RayMarching
 					return "0" + num + "_";
 				else
 					return num + "_";
+			}
+		}
+
+		private void CameraSettingsButton_Click(object sender, EventArgs e)
+		{
+			using (CameraSettingsForm myform = new CameraSettingsForm())
+			{
+				myform.ShowDialog();
 			}
 		}
 	}
