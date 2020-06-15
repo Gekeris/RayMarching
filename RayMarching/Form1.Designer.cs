@@ -41,6 +41,9 @@
 			this.OrRadioButton = new System.Windows.Forms.RadioButton();
 			this.SavePictureButton = new System.Windows.Forms.Button();
 			this.CameraSettingsButton = new System.Windows.Forms.Button();
+			this.RMObjectListBox = new System.Windows.Forms.ListBox();
+			this.AddObjectButton = new System.Windows.Forms.Button();
+			this.AddObjectComboBox = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MaxIterationNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MinDistNumericUpDown)).BeginInit();
@@ -66,9 +69,9 @@
 			// 
 			// UpdateButton
 			// 
-			this.UpdateButton.Location = new System.Drawing.Point(699, 8);
+			this.UpdateButton.Location = new System.Drawing.Point(646, 8);
 			this.UpdateButton.Name = "UpdateButton";
-			this.UpdateButton.Size = new System.Drawing.Size(75, 23);
+			this.UpdateButton.Size = new System.Drawing.Size(92, 23);
 			this.UpdateButton.TabIndex = 3;
 			this.UpdateButton.Text = "Update";
 			this.UpdateButton.UseVisualStyleBackColor = true;
@@ -148,7 +151,7 @@
 			// 
 			// ResetButton
 			// 
-			this.ResetButton.Location = new System.Drawing.Point(780, 416);
+			this.ResetButton.Location = new System.Drawing.Point(646, 445);
 			this.ResetButton.Name = "ResetButton";
 			this.ResetButton.Size = new System.Drawing.Size(92, 23);
 			this.ResetButton.TabIndex = 26;
@@ -158,7 +161,7 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(780, 387);
+			this.button2.Location = new System.Drawing.Point(646, 416);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(92, 23);
 			this.button2.TabIndex = 27;
@@ -169,7 +172,7 @@
 			// AndRadioButton
 			// 
 			this.AndRadioButton.AutoSize = true;
-			this.AndRadioButton.Location = new System.Drawing.Point(730, 37);
+			this.AndRadioButton.Location = new System.Drawing.Point(721, 37);
 			this.AndRadioButton.Name = "AndRadioButton";
 			this.AndRadioButton.Size = new System.Drawing.Size(44, 17);
 			this.AndRadioButton.TabIndex = 28;
@@ -181,7 +184,7 @@
 			// OrRadioButton
 			// 
 			this.OrRadioButton.AutoSize = true;
-			this.OrRadioButton.Location = new System.Drawing.Point(780, 37);
+			this.OrRadioButton.Location = new System.Drawing.Point(771, 37);
 			this.OrRadioButton.Name = "OrRadioButton";
 			this.OrRadioButton.Size = new System.Drawing.Size(36, 17);
 			this.OrRadioButton.TabIndex = 29;
@@ -210,11 +213,43 @@
 			this.CameraSettingsButton.UseVisualStyleBackColor = true;
 			this.CameraSettingsButton.Click += new System.EventHandler(this.CameraSettingsButton_Click);
 			// 
+			// RMObjectListBox
+			// 
+			this.RMObjectListBox.FormattingEnabled = true;
+			this.RMObjectListBox.Location = new System.Drawing.Point(646, 234);
+			this.RMObjectListBox.Name = "RMObjectListBox";
+			this.RMObjectListBox.Size = new System.Drawing.Size(226, 173);
+			this.RMObjectListBox.TabIndex = 32;
+			this.RMObjectListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RMObjectListBox_MouseDoubleClick);
+			// 
+			// AddObjectButton
+			// 
+			this.AddObjectButton.Location = new System.Drawing.Point(646, 205);
+			this.AddObjectButton.Name = "AddObjectButton";
+			this.AddObjectButton.Size = new System.Drawing.Size(75, 23);
+			this.AddObjectButton.TabIndex = 33;
+			this.AddObjectButton.Text = "Add Object";
+			this.AddObjectButton.UseVisualStyleBackColor = true;
+			this.AddObjectButton.Click += new System.EventHandler(this.AddObjectButton_Click);
+			// 
+			// AddObjectComboBox
+			// 
+			this.AddObjectComboBox.FormattingEnabled = true;
+			this.AddObjectComboBox.Items.AddRange(new object[] {
+            "Sphere"});
+			this.AddObjectComboBox.Location = new System.Drawing.Point(727, 207);
+			this.AddObjectComboBox.Name = "AddObjectComboBox";
+			this.AddObjectComboBox.Size = new System.Drawing.Size(121, 21);
+			this.AddObjectComboBox.TabIndex = 34;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(884, 480);
+			this.Controls.Add(this.AddObjectComboBox);
+			this.Controls.Add(this.AddObjectButton);
+			this.Controls.Add(this.RMObjectListBox);
 			this.Controls.Add(this.CameraSettingsButton);
 			this.Controls.Add(this.SavePictureButton);
 			this.Controls.Add(this.OrRadioButton);
@@ -257,6 +292,9 @@
 		public System.Windows.Forms.RadioButton OrRadioButton;
 		private System.Windows.Forms.Button SavePictureButton;
 		private System.Windows.Forms.Button CameraSettingsButton;
+		public System.Windows.Forms.ListBox RMObjectListBox;
+		private System.Windows.Forms.Button AddObjectButton;
+		private System.Windows.Forms.ComboBox AddObjectComboBox;
 	}
 }
 

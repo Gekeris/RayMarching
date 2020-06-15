@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RayMarching
 {
-	abstract class RMObject
+	public abstract class RMObject
 	{
-		protected Coordinate Position;
+		public Coordinate Position;
 		public Color color;
 		public double distance;
 		public virtual double GetDist(Coordinate coordinate)
 		{
-			throw new ArgumentNullException("Exception 1");
+			throw new ArgumentNullException("Error RMObject.GetDist()");
+		}
+		public virtual string ToFile(int num)
+		{
+			throw new ArgumentNullException("Error RMObject.ToFile()");
+		}
+		public virtual string ToListBox(int num)
+		{
+			throw new ArgumentNullException("Error RMObject.ToListBox()");
 		}
 	}
 
@@ -34,7 +43,7 @@ namespace RayMarching
 
 	class Sphere : RMObject
 	{
-		double radius;
+		public double radius;
 		public Sphere(double x, double y, double z, int red, int green, int blue, double radius)
 		{
 			Position = new Coordinate(x, y, z);
@@ -45,6 +54,14 @@ namespace RayMarching
 		{
 			distance = Coordinate.CoordGetDist(coordinate, Position) - radius;
 			return distance;
+		}
+		public override string ToFile(int num)
+		{
+			return $"object{num}=Sphere#{Position.x}#{Position.y}#{Position.z}#{color.R}#{color.G}#{color.B}#{radius}";
+		}
+		public override string ToListBox(int num)
+		{
+			return $"object{num}=Sphere [x = {Position.x}, y = {Position.y}, z = {Position.z}]";
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace RayMarching
 {
-	class Coordinate
+	public class Coordinate
 	{
 		public double x;
 		public double y;

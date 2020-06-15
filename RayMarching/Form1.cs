@@ -8,7 +8,15 @@ namespace RayMarching
 {
 	public partial class Form1 : Form
 	{
-		List<RMObject> objectList = new List<RMObject>(); // Список объектов, до которых считаем расстояние
+		public static List<RMObject> objectList;
+		public RMObject objectListAdd
+		{
+			set
+			{
+				RMObjectListBox.Items.Add(value.ToListBox(objectList.Count));
+				objectList.Add(value);
+			}
+		}
 
 		public Form1()
 		{
@@ -17,10 +25,8 @@ namespace RayMarching
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			objectList.Add(new Sphere(2, 1, 2, 0, 111, 0, 1));
-			objectList.Add(new Sphere(1.5, 1, 2, 111, 0, 0, 1));
-
-
+			AddObjectComboBox.SelectedIndex = 0;
+			objectList = new List<RMObject>();
 			ResetSettings(sender, e); // Загрузить настройки с файла
 			RMSettings.SettingsEdit = false; // Изменялись ли настройки
 			UpdateCamera(sender, e); // Отрисовка камеры 
@@ -59,7 +65,6 @@ namespace RayMarching
 		private Bitmap CreateBitmap() // Отрисовка изображения камеры
 		{
 			Bitmap bitmap = new Bitmap(Camera.Width, Camera.Height); // Создать битмап камеры
-
 			for (int y = 0; y < Camera.Height; y++) // обход и закраска всех пикселей
 				for (int x = 0; x < Camera.Width; x++) 
 					bitmap.SetPixel(x, y, RayRM(x, y));
@@ -92,7 +97,7 @@ namespace RayMarching
 				i++;
 			}
 		}
-
+		Floor floor = new Floor();
 		private object GetDist(Coordinate coord) // Расстояние до ближайшего объекта
 		{
 			RMObject obj = objectList[0];
@@ -103,12 +108,9 @@ namespace RayMarching
 					obj = tempObj;
 			}
 
-			if (coord.y < obj.distance)
-			{
-				Floor f = new Floor();
-				f.GetDist(coord);
-				obj = f;
-			}
+			if (floor.GetDist(coord) < obj.distance)
+				obj = floor;
+
 			if (obj.distance <= Convert.ToDouble(MinDistNumericUpDown.Value))
 				return obj.color;
 
@@ -162,6 +164,40 @@ namespace RayMarching
 			using (CameraSettingsForm myform = new CameraSettingsForm())
 			{
 				myform.ShowDialog();
+			}
+		}
+
+		private void RMObjectListBox_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			int index = RMObjectListBox.IndexFromPoint(e.Location);
+			if (index != -1)
+			{
+				using (objectListSettingsForm myform = new objectListSettingsForm())
+				{
+					myform.index = index;
+					myform.ShowDialog();
+					RMObjectListBox.Items.Clear();
+					for(int i = 0; i < objectList.Count; i++)
+						RMObjectListBox.Items.Add(objectList[i].ToListBox(i));
+				}
+			}
+		}
+
+		private void AddObjectButton_Click(object sender, EventArgs e)
+		{
+			RMSettings.SettingsEdit = true;
+			if(AddObjectComboBox.SelectedItem.ToString() == "Sphere")
+				objectListAdd = new Sphere(0, 0, 0, 0, 0, 0, 1);
+			else
+				throw new ArgumentNullException("Error Form1.AddObjectButton_Click()");
+
+			using (objectListSettingsForm myform = new objectListSettingsForm())
+			{
+				myform.index = objectList.Count - 1;
+				myform.ShowDialog();
+				RMObjectListBox.Items.Clear();
+				for (int i = 0; i < objectList.Count; i++)
+					RMObjectListBox.Items.Add(objectList[i].ToListBox(i));
 			}
 		}
 	}

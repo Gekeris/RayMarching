@@ -1,2 +1,3 @@
 /RayMarching/bin/Debug/*
+!/RayMarching/bin/Debug/Pictures/
 !/RayMarching/bin/Debug/Pictures/*

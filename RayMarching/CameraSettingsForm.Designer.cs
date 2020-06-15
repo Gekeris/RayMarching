@@ -43,7 +43,7 @@
 			this.LookAtXNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.label4 = new System.Windows.Forms.Label();
 			this.ApplyButton = new System.Windows.Forms.Button();
-			this.CancelButton = new System.Windows.Forms.Button();
+			this.CancelButton1 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PositionZNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PositionYNumericUpDown)).BeginInit();
@@ -300,20 +300,20 @@
 			// 
 			// CancelButton
 			// 
-			this.CancelButton.Location = new System.Drawing.Point(181, 118);
-			this.CancelButton.Name = "CancelButton";
-			this.CancelButton.Size = new System.Drawing.Size(75, 23);
-			this.CancelButton.TabIndex = 3;
-			this.CancelButton.Text = "Cancel";
-			this.CancelButton.UseVisualStyleBackColor = true;
-			this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+			this.CancelButton1.Location = new System.Drawing.Point(181, 118);
+			this.CancelButton1.Name = "CancelButton";
+			this.CancelButton1.Size = new System.Drawing.Size(75, 23);
+			this.CancelButton1.TabIndex = 3;
+			this.CancelButton1.Text = "Cancel";
+			this.CancelButton1.UseVisualStyleBackColor = true;
+			this.CancelButton1.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
 			// CameraSettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(353, 147);
-			this.Controls.Add(this.CancelButton);
+			this.Controls.Add(this.CancelButton1);
 			this.Controls.Add(this.ApplyButton);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -341,7 +341,7 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button ApplyButton;
-		private System.Windows.Forms.Button CancelButton;
+		private System.Windows.Forms.Button CancelButton1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;

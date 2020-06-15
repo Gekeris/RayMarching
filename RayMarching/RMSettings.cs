@@ -15,43 +15,65 @@ namespace RayMarching
 			Camera.Position.z = 0;
 
 			Camera.LookAt.x = 5;
-			Camera.LookAt.y = 0;
+			Camera.LookAt.y = 1;
 			Camera.LookAt.z = 5;
 
-			form.MaxIterationNumericUpDown.Value = 40;
-			form.MinDistNumericUpDown.Value = 0.0001m;
+			form.MaxIterationNumericUpDown.Value = 50;
+			form.MinDistNumericUpDown.Value = 0.001m;
 
 			form.OrRadioButton.Checked = true;
 			form.AndRadioButton.Checked = false;
+
+			Form1.objectList.Clear();
+			form.RMObjectListBox.Items.Clear();
+			form.objectListAdd = new Sphere(5, 1, 5, 0, 111, 0, 1);
 		}
 
 		public static void FromFile(Form1 form) // Загрузка настроек с файла
 		{
-			if (!File.Exists("settings.txt"))
+			try
+			{
+				Dictionary<string, string> Settings = new Dictionary<string, string>(); // Словарь с настройками
+				using (StreamReader sr = new StreamReader("settings.txt", Encoding.UTF8))
+				{
+					string[] tempSettings = sr.ReadToEnd().Split(new char[] { '\r', '\n', '=' }, System.StringSplitOptions.RemoveEmptyEntries);  // Поделить файл по строкам и =
+					for (int i = 0; i < tempSettings.Length; i += 2) // Заполнение словаря. Первая строка название переменной (ключ), вторая значение в string
+						Settings.Add(tempSettings[i], tempSettings[i + 1]);
+				}
+				Camera.Position.x = double.Parse(Settings["CameraPositionX"]);
+				Camera.Position.y = double.Parse(Settings["CameraPositionY"]);
+				Camera.Position.z = double.Parse(Settings["CameraPositionZ"]);
+
+				Camera.LookAt.x = double.Parse(Settings["CameraLookAtX"]);
+				Camera.LookAt.y = double.Parse(Settings["CameraLookAtY"]);
+				Camera.LookAt.z = double.Parse(Settings["CameraLookAtZ"]);
+
+				form.MaxIterationNumericUpDown.Value = decimal.Parse(Settings["MaxIterationNumericUpDown"]);
+				form.MinDistNumericUpDown.Value = decimal.Parse(Settings["MinDistNumericUpDown"]);
+
+				form.OrRadioButton.Checked = bool.Parse(Settings["OrRadioButton"]);
+				form.AndRadioButton.Checked = bool.Parse(Settings["AndRadioButton"]);
+
+				Form1.objectList.Clear();
+				form.RMObjectListBox.Items.Clear();
+
+				for (int i = 0; true; i++)
+				{
+					string objString = "object" + i;
+					if (!Settings.ContainsKey(objString))
+						break;
+					string[] obj = Settings[objString].Split('#');
+					if (obj[0] == "Sphere")
+						form.objectListAdd = new Sphere(double.Parse(obj[1]), double.Parse(obj[2]), double.Parse(obj[3]), int.Parse(obj[4]), int.Parse(obj[5]), int.Parse(obj[6]), double.Parse(obj[7]));
+					else
+						throw new System.ArgumentNullException("Error RMSettings.FromFile()");
+				}
+			}
+			catch
 			{
 				DefaultSettings(form);
 				ToFile(form);
 			}
-			Dictionary<string, string> Settings = new Dictionary<string, string>(); // Словарь с настройками
-			using (StreamReader sr = new StreamReader("settings.txt", Encoding.UTF8))
-			{
-				string[] tempSettings = sr.ReadToEnd().Split(new char[] { '\r', '\n', '=' }, System.StringSplitOptions.RemoveEmptyEntries);  // Поделить файл по строкам и =
-				for (int i = 0; i < tempSettings.Length; i += 2) // Заполнение словаря. Первая строка название переменной (ключ), вторая значение в string
-					Settings.Add(tempSettings[i], tempSettings[i + 1]);
-			}
-			Camera.Position.x = double.Parse(Settings["CameraPositionX"]);
-			Camera.Position.y = double.Parse(Settings["CameraPositionY"]);
-			Camera.Position.z = double.Parse(Settings["CameraPositionZ"]);
-
-			Camera.LookAt.x = double.Parse(Settings["CameraLookAtX"]);
-			Camera.LookAt.y = double.Parse(Settings["CameraLookAtY"]);
-			Camera.LookAt.z = double.Parse(Settings["CameraLookAtZ"]);
-
-			form.MaxIterationNumericUpDown.Value = decimal.Parse(Settings["MaxIterationNumericUpDown"]);
-			form.MinDistNumericUpDown.Value = decimal.Parse(Settings["MinDistNumericUpDown"]);
-
-			form.OrRadioButton.Checked = bool.Parse(Settings["OrRadioButton"]);
-			form.AndRadioButton.Checked = bool.Parse(Settings["AndRadioButton"]);
 		}
 
 		public static void ToFile(Form1 form) // Записать настройки в файл
@@ -71,6 +93,9 @@ namespace RayMarching
 
 				sw.WriteLine("OrRadioButton=" + form.OrRadioButton.Checked);
 				sw.WriteLine("AndRadioButton=" + form.AndRadioButton.Checked);
+				
+				for(int i = 0; i < Form1.objectList.Count; i++)
+					sw.WriteLine(Form1.objectList[i].ToFile(i));
 			}
 		}
 	}
