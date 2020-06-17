@@ -36,7 +36,7 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MinDistNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.ResetButton = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.SaveButton = new System.Windows.Forms.Button();
 			this.AndRadioButton = new System.Windows.Forms.RadioButton();
 			this.OrRadioButton = new System.Windows.Forms.RadioButton();
 			this.SavePictureButton = new System.Windows.Forms.Button();
@@ -44,6 +44,11 @@
 			this.RMObjectListBox = new System.Windows.Forms.ListBox();
 			this.AddObjectButton = new System.Windows.Forms.Button();
 			this.AddObjectComboBox = new System.Windows.Forms.ComboBox();
+			this.AmbientOcclusionCheckBox = new System.Windows.Forms.CheckBox();
+			this.LightingCheckBox = new System.Windows.Forms.CheckBox();
+			this.ShadowsCheckBox = new System.Windows.Forms.CheckBox();
+			this.LightingButton = new System.Windows.Forms.Button();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MaxIterationNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MinDistNumericUpDown)).BeginInit();
@@ -80,7 +85,7 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(690, 62);
+			this.label7.Location = new System.Drawing.Point(681, 62);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(65, 13);
 			this.label7.TabIndex = 22;
@@ -88,7 +93,7 @@
 			// 
 			// MaxIterationNumericUpDown
 			// 
-			this.MaxIterationNumericUpDown.Location = new System.Drawing.Point(761, 60);
+			this.MaxIterationNumericUpDown.Location = new System.Drawing.Point(752, 60);
 			this.MaxIterationNumericUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -113,7 +118,7 @@
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(664, 88);
+			this.label8.Location = new System.Drawing.Point(655, 88);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(91, 13);
 			this.label8.TabIndex = 24;
@@ -127,7 +132,7 @@
             0,
             0,
             262144});
-			this.MinDistNumericUpDown.Location = new System.Drawing.Point(761, 86);
+			this.MinDistNumericUpDown.Location = new System.Drawing.Point(752, 86);
 			this.MinDistNumericUpDown.Maximum = new decimal(new int[] {
             5,
             0,
@@ -159,15 +164,15 @@
 			this.ResetButton.UseVisualStyleBackColor = true;
 			this.ResetButton.Click += new System.EventHandler(this.ResetSettings);
 			// 
-			// button2
+			// SaveButton
 			// 
-			this.button2.Location = new System.Drawing.Point(646, 416);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(92, 23);
-			this.button2.TabIndex = 27;
-			this.button2.Text = "Save settings";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.SaveSettings);
+			this.SaveButton.Location = new System.Drawing.Point(646, 416);
+			this.SaveButton.Name = "SaveButton";
+			this.SaveButton.Size = new System.Drawing.Size(92, 23);
+			this.SaveButton.TabIndex = 27;
+			this.SaveButton.Text = "Save settings";
+			this.SaveButton.UseVisualStyleBackColor = true;
+			this.SaveButton.Click += new System.EventHandler(this.SaveSettings);
 			// 
 			// AndRadioButton
 			// 
@@ -242,11 +247,66 @@
 			this.AddObjectComboBox.Size = new System.Drawing.Size(121, 21);
 			this.AddObjectComboBox.TabIndex = 34;
 			// 
+			// AmbientOcclusionCheckBox
+			// 
+			this.AmbientOcclusionCheckBox.AutoSize = true;
+			this.AmbientOcclusionCheckBox.Location = new System.Drawing.Point(646, 116);
+			this.AmbientOcclusionCheckBox.Name = "AmbientOcclusionCheckBox";
+			this.AmbientOcclusionCheckBox.Size = new System.Drawing.Size(112, 17);
+			this.AmbientOcclusionCheckBox.TabIndex = 35;
+			this.AmbientOcclusionCheckBox.Text = "Ambient occlusion";
+			this.AmbientOcclusionCheckBox.UseVisualStyleBackColor = true;
+			this.AmbientOcclusionCheckBox.CheckedChanged += new System.EventHandler(this.SettingsEdit);
+			// 
+			// LightingCheckBox
+			// 
+			this.LightingCheckBox.AutoSize = true;
+			this.LightingCheckBox.Location = new System.Drawing.Point(646, 145);
+			this.LightingCheckBox.Name = "LightingCheckBox";
+			this.LightingCheckBox.Size = new System.Drawing.Size(63, 17);
+			this.LightingCheckBox.TabIndex = 36;
+			this.LightingCheckBox.Text = "Lighting";
+			this.LightingCheckBox.UseVisualStyleBackColor = true;
+			this.LightingCheckBox.CheckedChanged += new System.EventHandler(this.SettingsEdit);
+			// 
+			// ShadowsCheckBox
+			// 
+			this.ShadowsCheckBox.AutoSize = true;
+			this.ShadowsCheckBox.Location = new System.Drawing.Point(646, 174);
+			this.ShadowsCheckBox.Name = "ShadowsCheckBox";
+			this.ShadowsCheckBox.Size = new System.Drawing.Size(70, 17);
+			this.ShadowsCheckBox.TabIndex = 37;
+			this.ShadowsCheckBox.Text = "Shadows";
+			this.ShadowsCheckBox.UseVisualStyleBackColor = true;
+			this.ShadowsCheckBox.CheckedChanged += new System.EventHandler(this.SettingsEdit);
+			// 
+			// LightingButton
+			// 
+			this.LightingButton.Enabled = false;
+			this.LightingButton.Location = new System.Drawing.Point(780, 141);
+			this.LightingButton.Name = "LightingButton";
+			this.LightingButton.Size = new System.Drawing.Size(92, 23);
+			this.LightingButton.TabIndex = 38;
+			this.LightingButton.Text = "lighting Settings";
+			this.LightingButton.UseVisualStyleBackColor = true;
+			// 
+			// progressBar1
+			// 
+			this.progressBar1.Location = new System.Drawing.Point(0, 457);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(640, 23);
+			this.progressBar1.TabIndex = 39;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(884, 480);
+			this.Controls.Add(this.progressBar1);
+			this.Controls.Add(this.LightingButton);
+			this.Controls.Add(this.ShadowsCheckBox);
+			this.Controls.Add(this.LightingCheckBox);
+			this.Controls.Add(this.AmbientOcclusionCheckBox);
 			this.Controls.Add(this.AddObjectComboBox);
 			this.Controls.Add(this.AddObjectButton);
 			this.Controls.Add(this.RMObjectListBox);
@@ -254,7 +314,7 @@
 			this.Controls.Add(this.SavePictureButton);
 			this.Controls.Add(this.OrRadioButton);
 			this.Controls.Add(this.AndRadioButton);
-			this.Controls.Add(this.button2);
+			this.Controls.Add(this.SaveButton);
 			this.Controls.Add(this.ResetButton);
 			this.Controls.Add(this.MinDistNumericUpDown);
 			this.Controls.Add(this.label8);
@@ -287,7 +347,7 @@
 		private System.Windows.Forms.Label label8;
 		public System.Windows.Forms.NumericUpDown MinDistNumericUpDown;
 		private System.Windows.Forms.Button ResetButton;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button SaveButton;
 		public System.Windows.Forms.RadioButton AndRadioButton;
 		public System.Windows.Forms.RadioButton OrRadioButton;
 		private System.Windows.Forms.Button SavePictureButton;
@@ -295,6 +355,11 @@
 		public System.Windows.Forms.ListBox RMObjectListBox;
 		private System.Windows.Forms.Button AddObjectButton;
 		private System.Windows.Forms.ComboBox AddObjectComboBox;
+		public System.Windows.Forms.CheckBox AmbientOcclusionCheckBox;
+		public System.Windows.Forms.CheckBox LightingCheckBox;
+		public System.Windows.Forms.CheckBox ShadowsCheckBox;
+		private System.Windows.Forms.Button LightingButton;
+		private System.Windows.Forms.ProgressBar progressBar1;
 	}
 }
 

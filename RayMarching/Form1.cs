@@ -25,10 +25,10 @@ namespace RayMarching
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			progressBar1.Maximum = Camera.Height;
 			AddObjectComboBox.SelectedIndex = 0;
 			objectList = new List<RMObject>();
 			ResetSettings(sender, e); // Загрузить настройки с файла
-			RMSettings.SettingsEdit = false; // Изменялись ли настройки
 			UpdateCamera(sender, e); // Отрисовка камеры 
 		}
 
@@ -58,6 +58,8 @@ namespace RayMarching
 
 		private void UpdateCamera(object sender, EventArgs e) // Отрисовка камеры
 		{
+			progressBar1.Value = 0;
+			progressBar1.Visible = true;
 			Camera.Initialize(); // Создать базис
 			Camera1.Image = CreateBitmap(); // Отрисовка изображения камеры
 		}
@@ -66,9 +68,12 @@ namespace RayMarching
 		{
 			Bitmap bitmap = new Bitmap(Camera.Width, Camera.Height); // Создать битмап камеры
 			for (int y = 0; y < Camera.Height; y++) // обход и закраска всех пикселей
-				for (int x = 0; x < Camera.Width; x++) 
+			{
+				for (int x = 0; x < Camera.Width; x++)
 					bitmap.SetPixel(x, y, RayRM(x, y));
-
+				progressBar1.Value++;
+			}
+			progressBar1.Visible = false;
 			return bitmap; // Возвращение карты
 		}
 
@@ -89,7 +94,7 @@ namespace RayMarching
 			{
 				object obj = GetDist(rayCoord); // Узнать расстояние до ближайшего объекта
 				if (obj.GetType().Name == "Color") // Если GetMinDist вернула цвет, значит произошло касание с объектом
-					return (Color) obj;
+					return ChangeColor((Color) obj, Convert.ToDouble(i / MaxIterationNumericUpDown.Value));
 				else // Если GetMinDist вернул число, умножаем вектор на него
 					rayCoord += rayVector * (double) obj;
 				if (i == MaxIterationNumericUpDown.Value) // Если количество итераций равно максимуму
@@ -126,14 +131,33 @@ namespace RayMarching
 			return obj.distance;
 		}
 
+		private Color ChangeColor(Color color, double per)
+		{
+			if (AmbientOcclusionCheckBox.Checked)
+			{
+				color = Color.FromArgb(Convert.ToInt32((color.R * (1 - per) + 40 * per) / (1 + per)), Convert.ToInt32((color.G * (1 - per) + 40 * per) / (1 + per)), Convert.ToInt32((color.B * (1 - per) + 40 * per) / (1 + per)));
+			}
+			if (LightingCheckBox.Checked)
+			{
+
+			}
+			if (ShadowsCheckBox.Checked)
+			{
+
+			}
+			return color;
+		}
+
 		private void SettingsEdit(object sender, EventArgs e)
 		{
 			RMSettings.SettingsEdit = true;
+			LightingButton.Enabled = (LightingCheckBox.Checked || ShadowsCheckBox.Checked);
 		}
 
 		private void ResetSettings(object sender, EventArgs e) // Загрузить настройки с файла
 		{
 			RMSettings.FromFile(this); // Загрузить настройки с файла
+			RMSettings.SettingsEdit = false; // Изменялись ли настройки
 		}
 
 		private void SaveSettings(object sender, EventArgs e)  // Сохранить настройки в файл

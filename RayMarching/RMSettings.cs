@@ -14,19 +14,23 @@ namespace RayMarching
 			Camera.Position.y = 5;
 			Camera.Position.z = 0;
 
-			Camera.LookAt.x = 5;
+			Camera.LookAt.x = 3;
 			Camera.LookAt.y = 1;
-			Camera.LookAt.z = 5;
+			Camera.LookAt.z = 3;
 
 			form.MaxIterationNumericUpDown.Value = 50;
 			form.MinDistNumericUpDown.Value = 0.001m;
+
+			form.AmbientOcclusionCheckBox.Checked = true;
+			form.LightingCheckBox.Checked = false;
+			form.ShadowsCheckBox.Checked = false;
 
 			form.OrRadioButton.Checked = true;
 			form.AndRadioButton.Checked = false;
 
 			Form1.objectList.Clear();
 			form.RMObjectListBox.Items.Clear();
-			form.objectListAdd = new Sphere(5, 1, 5, 0, 111, 0, 1);
+			form.objectListAdd = new Sphere(3, 1, 3, 0, 111, 0, 1);
 		}
 
 		public static void FromFile(Form1 form) // Загрузка настроек с файла
@@ -53,6 +57,10 @@ namespace RayMarching
 
 				form.OrRadioButton.Checked = bool.Parse(Settings["OrRadioButton"]);
 				form.AndRadioButton.Checked = bool.Parse(Settings["AndRadioButton"]);
+
+				form.AmbientOcclusionCheckBox.Checked = bool.Parse(Settings["AmbientOcclusionCheckBox"]);
+				form.LightingCheckBox.Checked = bool.Parse(Settings["LightingCheckBox"]);
+				form.ShadowsCheckBox.Checked = bool.Parse(Settings["ShadowsCheckBox"]);
 
 				Form1.objectList.Clear();
 				form.RMObjectListBox.Items.Clear();
@@ -93,8 +101,12 @@ namespace RayMarching
 
 				sw.WriteLine("OrRadioButton=" + form.OrRadioButton.Checked);
 				sw.WriteLine("AndRadioButton=" + form.AndRadioButton.Checked);
-				
-				for(int i = 0; i < Form1.objectList.Count; i++)
+
+				sw.WriteLine("AmbientOcclusionCheckBox=" + form.AmbientOcclusionCheckBox.Checked);
+				sw.WriteLine("LightingCheckBox=" + form.LightingCheckBox.Checked);
+				sw.WriteLine("ShadowsCheckBox=" + form.ShadowsCheckBox.Checked);
+
+				for (int i = 0; i < Form1.objectList.Count; i++)
 					sw.WriteLine(Form1.objectList[i].ToFile(i));
 			}
 		}
