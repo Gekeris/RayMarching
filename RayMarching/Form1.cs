@@ -100,16 +100,25 @@ namespace RayMarching
 		Floor floor = new Floor();
 		private object GetDist(Coordinate coord) // Расстояние до ближайшего объекта
 		{
-			RMObject obj = objectList[0];
-			objectList[0].GetDist(coord);
-			foreach (RMObject tempObj in objectList)
+			RMObject obj;
+			if (objectList.Count > 0)
 			{
-				if ((OrRadioButton.Checked && (tempObj.GetDist(coord) < obj.distance)) || (AndRadioButton.Checked && (tempObj.GetDist(coord) > obj.distance)))
-					obj = tempObj;
-			}
+				obj = objectList[0];
+				objectList[0].GetDist(coord);
+				foreach (RMObject tempObj in objectList)
+				{
+					if ((OrRadioButton.Checked && (tempObj.GetDist(coord) < obj.distance)) || (AndRadioButton.Checked && (tempObj.GetDist(coord) > obj.distance)))
+						obj = tempObj;
+				}
 
-			if (floor.GetDist(coord) < obj.distance)
+				if (floor.GetDist(coord) < obj.distance)
+					obj = floor;
+			}
+			else
+			{
+				floor.GetDist(coord);
 				obj = floor;
+			}
 
 			if (obj.distance <= Convert.ToDouble(MinDistNumericUpDown.Value))
 				return obj.color;

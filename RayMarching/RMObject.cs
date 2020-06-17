@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 
 namespace RayMarching
 {
@@ -52,7 +51,10 @@ namespace RayMarching
 		}
 		public override double GetDist(Coordinate coordinate)
 		{
-			distance = Coordinate.CoordGetDist(coordinate, Position) - radius;
+			if (radius >= 0)
+				distance = Coordinate.CoordGetDist(coordinate, Position) - radius;
+			else
+				distance = -1 * Coordinate.CoordGetDist(coordinate, Position) - radius;
 			return distance;
 		}
 		public override string ToFile(int num)
