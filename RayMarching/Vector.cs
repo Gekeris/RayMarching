@@ -39,5 +39,9 @@ namespace RayMarching
 		{
 			return Math.Sqrt(vect.x * vect.x + vect.y * vect.y + vect.z * vect.z);
 		}
+		public static double Scalar(Vector vector1, Vector vector2)
+		{
+			return vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z;
+		}
 	}
 }

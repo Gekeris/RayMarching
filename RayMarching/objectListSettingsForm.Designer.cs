@@ -80,6 +80,7 @@
 			this.PositionZNumericUpDown.Name = "PositionZNumericUpDown";
 			this.PositionZNumericUpDown.Size = new System.Drawing.Size(120, 20);
 			this.PositionZNumericUpDown.TabIndex = 5;
+			this.PositionZNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// PositionYNumericUpDown
 			// 
@@ -103,6 +104,7 @@
 			this.PositionYNumericUpDown.Name = "PositionYNumericUpDown";
 			this.PositionYNumericUpDown.Size = new System.Drawing.Size(120, 20);
 			this.PositionYNumericUpDown.TabIndex = 4;
+			this.PositionYNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// PositionXNumericUpDown
 			// 
@@ -126,6 +128,7 @@
 			this.PositionXNumericUpDown.Name = "PositionXNumericUpDown";
 			this.PositionXNumericUpDown.Size = new System.Drawing.Size(120, 20);
 			this.PositionXNumericUpDown.TabIndex = 3;
+			this.PositionXNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// label3
 			// 
@@ -183,6 +186,7 @@
 			this.ColorBlueNumericUpDown.Name = "ColorBlueNumericUpDown";
 			this.ColorBlueNumericUpDown.Size = new System.Drawing.Size(96, 20);
 			this.ColorBlueNumericUpDown.TabIndex = 5;
+			this.ColorBlueNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// ColorGreenNumericUpDown
 			// 
@@ -195,6 +199,7 @@
 			this.ColorGreenNumericUpDown.Name = "ColorGreenNumericUpDown";
 			this.ColorGreenNumericUpDown.Size = new System.Drawing.Size(96, 20);
 			this.ColorGreenNumericUpDown.TabIndex = 4;
+			this.ColorGreenNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// ColorRedNumericUpDown
 			// 
@@ -207,6 +212,7 @@
 			this.ColorRedNumericUpDown.Name = "ColorRedNumericUpDown";
 			this.ColorRedNumericUpDown.Size = new System.Drawing.Size(96, 20);
 			this.ColorRedNumericUpDown.TabIndex = 3;
+			this.ColorRedNumericUpDown.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// label4
 			// 
@@ -285,6 +291,7 @@
 			this.numericUpDown1.Name = "numericUpDown1";
 			this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
 			this.numericUpDown1.TabIndex = 4;
+			this.numericUpDown1.ValueChanged += new System.EventHandler(this.SettingsEdit);
 			// 
 			// SaveButton
 			// 

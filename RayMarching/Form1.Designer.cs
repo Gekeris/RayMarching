@@ -289,6 +289,7 @@
 			this.LightingButton.TabIndex = 38;
 			this.LightingButton.Text = "lighting Settings";
 			this.LightingButton.UseVisualStyleBackColor = true;
+			this.LightingButton.Click += new System.EventHandler(this.LightingButton_Click);
 			// 
 			// progressBar1
 			// 

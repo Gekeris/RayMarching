@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 
 namespace RayMarching
 {
@@ -92,9 +93,9 @@ namespace RayMarching
 			decimal i = 1; // Количество итераций
 			while (true)
 			{
-				object obj = GetDist(rayCoord); // Узнать расстояние до ближайшего объекта
+				object obj = GetDist(rayCoord, true); // Узнать расстояние до ближайшего объекта
 				if (obj.GetType().Name == "Color") // Если GetMinDist вернула цвет, значит произошло касание с объектом
-					return ChangeColor((Color) obj, Convert.ToDouble(i / MaxIterationNumericUpDown.Value));
+					return ChangeColor((Color) obj, Convert.ToDouble(i / MaxIterationNumericUpDown.Value), rayCoord,x,y);
 				else // Если GetMinDist вернул число, умножаем вектор на него
 					rayCoord += rayVector * (double) obj;
 				if (i == MaxIterationNumericUpDown.Value) // Если количество итераций равно максимуму
@@ -103,7 +104,7 @@ namespace RayMarching
 			}
 		}
 		Floor floor = new Floor();
-		private object GetDist(Coordinate coord) // Расстояние до ближайшего объекта
+		private object GetDist(Coordinate coord, bool ReturnColor) // Расстояние до ближайшего объекта
 		{
 			RMObject obj;
 			if (objectList.Count > 0)
@@ -125,13 +126,13 @@ namespace RayMarching
 				obj = floor;
 			}
 
-			if (obj.distance <= Convert.ToDouble(MinDistNumericUpDown.Value))
+			if ((obj.distance <= Convert.ToDouble(MinDistNumericUpDown.Value)) && ReturnColor)
 				return obj.color;
 
 			return obj.distance;
 		}
 
-		private Color ChangeColor(Color color, double per)
+		private Color ChangeColor(Color color, double per, Coordinate coord,int x, int y)
 		{
 			if (AmbientOcclusionCheckBox.Checked)
 			{
@@ -139,11 +140,53 @@ namespace RayMarching
 			}
 			if (LightingCheckBox.Checked)
 			{
-
+				double dist = (double) GetDist(coord, false);
+				double minDist = Convert.ToDouble(MinDistNumericUpDown.Value);
+				Vector n = Vector.Normalize(new Vector
+				(
+					dist - (double) GetDist(new Coordinate(coord.x - minDist, coord.y, coord.z), false),
+					dist - (double) GetDist(new Coordinate(coord.x, coord.y - minDist, coord.z), false),
+					dist - (double) GetDist(new Coordinate(coord.x, coord.y, coord.z - minDist), false)
+				));
+				Vector li = Vector.Normalize(Vector.GetVect(coord, RMSettings.LightingPosition));
+				double scalar = (Vector.Scalar(n, li) + 1) / 2;
+				scalar *= scalar;
+				color = Color.FromArgb(LightCol(color.R), LightCol(color.G), LightCol(color.B));
+				int LightCol(int ColorNum)
+				{
+					int ret = Convert.ToInt32(ColorNum * scalar * RMSettings.LightBrightness);
+					if (ret > 255)
+						ret = 255;
+					return ret;
+				}
 			}
 			if (ShadowsCheckBox.Checked)
 			{
+				Coordinate c = new Coordinate(coord.x, coord.y, coord.z);
+				while (true)
+				{
+					double distToCamera = Vector.length(Vector.GetVect(c, RMSettings.LightingPosition));
+					double DistToAnyObject = (double) GetDist(c, false);
 
+					if ((DistToAnyObject >= -9E-15) && (DistToAnyObject < RMSettings.ShadowMinStep))
+						DistToAnyObject = RMSettings.ShadowMinStep;
+
+					if (distToCamera < DistToAnyObject)
+						DistToAnyObject = distToCamera;
+
+					if (DistToAnyObject < -9E-15)
+					{
+						color = Color.FromArgb(Convert.ToInt32(color.R / (1 + 1 / RMSettings.LightBrightness)), Convert.ToInt32(color.G / (1 + 1 / RMSettings.LightBrightness)), Convert.ToInt32(color.B / (1 + 1 / RMSettings.LightBrightness)));
+						break;
+					}
+					else if (distToCamera < 1)
+						break;
+					else
+					{
+						Vector v = Vector.Normalize(Vector.GetVect(c, RMSettings.LightingPosition));
+						c +=  v * DistToAnyObject;
+					}
+				}
 			}
 			return color;
 		}
@@ -231,6 +274,15 @@ namespace RayMarching
 				RMObjectListBox.Items.Clear();
 				for (int i = 0; i < objectList.Count; i++)
 					RMObjectListBox.Items.Add(objectList[i].ToListBox(i));
+			}
+		}
+
+		private void LightingButton_Click(object sender, EventArgs e)
+		{
+			using (LightingSettingsForm myform = new LightingSettingsForm())
+			{
+				myform.Shadow = ShadowsCheckBox.Checked;
+				myform.ShowDialog();
 			}
 		}
 	}

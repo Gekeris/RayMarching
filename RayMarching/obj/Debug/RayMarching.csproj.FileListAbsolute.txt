@@ -10,3 +10,4 @@ D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.exe
 D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.pdb
 D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.CameraSettingsForm.resources
 D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.objectListSettingsForm.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Debug\RayMarching.LightingSettingsForm.resources

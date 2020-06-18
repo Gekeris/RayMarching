@@ -4,9 +4,13 @@ using System.IO;
 
 namespace RayMarching
 {
-	static class RMSettings
+	public static class RMSettings
 	{
 		public static bool SettingsEdit; // Изменялись ли настройки
+
+		public static Coordinate LightingPosition = new Coordinate(0, 0, 0);
+		public static double LightBrightness = 1;
+		public static double ShadowMinStep = 0.25;
 
 		public static void DefaultSettings(Form1 form) // Стандартные настройки
 		{
@@ -18,12 +22,19 @@ namespace RayMarching
 			Camera.LookAt.y = 1;
 			Camera.LookAt.z = 3;
 
+			LightingPosition.x = 0;
+			LightingPosition.y = 5;
+			LightingPosition.z = 5;
+			LightBrightness = 1;
+
+			ShadowMinStep = 0.25;
+
 			form.MaxIterationNumericUpDown.Value = 50;
 			form.MinDistNumericUpDown.Value = 0.001m;
 
-			form.AmbientOcclusionCheckBox.Checked = true;
-			form.LightingCheckBox.Checked = false;
-			form.ShadowsCheckBox.Checked = false;
+			form.AmbientOcclusionCheckBox.Checked = false;
+			form.LightingCheckBox.Checked = true;
+			form.ShadowsCheckBox.Checked = true;
 
 			form.OrRadioButton.Checked = true;
 			form.AndRadioButton.Checked = false;
@@ -51,6 +62,13 @@ namespace RayMarching
 				Camera.LookAt.x = double.Parse(Settings["CameraLookAtX"]);
 				Camera.LookAt.y = double.Parse(Settings["CameraLookAtY"]);
 				Camera.LookAt.z = double.Parse(Settings["CameraLookAtZ"]);
+
+				LightingPosition.x = double.Parse(Settings["LightingPositionX"]);
+				LightingPosition.y = double.Parse(Settings["LightingPositionY"]);
+				LightingPosition.z = double.Parse(Settings["LightingPositionZ"]);
+				LightBrightness = double.Parse(Settings["LightBrightness"]);
+
+				ShadowMinStep = double.Parse(Settings["ShadowMinStep"]);
 
 				form.MaxIterationNumericUpDown.Value = decimal.Parse(Settings["MaxIterationNumericUpDown"]);
 				form.MinDistNumericUpDown.Value = decimal.Parse(Settings["MinDistNumericUpDown"]);
@@ -95,6 +113,13 @@ namespace RayMarching
 				sw.WriteLine("CameraLookAtX=" + Camera.LookAt.x);
 				sw.WriteLine("CameraLookAtY=" + Camera.LookAt.y);
 				sw.WriteLine("CameraLookAtZ=" + Camera.LookAt.z);
+
+				sw.WriteLine("LightingPositionX=" + LightingPosition.x);
+				sw.WriteLine("LightingPositionY=" + LightingPosition.y);
+				sw.WriteLine("LightingPositionZ=" + LightingPosition.z);
+				sw.WriteLine("LightBrightness=" + LightBrightness);
+				
+				sw.WriteLine("ShadowMinStep=" + ShadowMinStep);
 
 				sw.WriteLine("MaxIterationNumericUpDown=" + form.MaxIterationNumericUpDown.Value);
 				sw.WriteLine("MinDistNumericUpDown=" + form.MinDistNumericUpDown.Value);

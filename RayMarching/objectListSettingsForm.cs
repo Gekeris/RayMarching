@@ -56,5 +56,10 @@ namespace RayMarching
 		{
 			Close();
 		}
+
+		private void SettingsEdit(object sender, EventArgs e)
+		{
+			RMSettings.SettingsEdit = true;
+		}
 	}
 }
