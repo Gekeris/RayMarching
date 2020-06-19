@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace RayMarching
 
 		public static Coordinate LightingPosition = new Coordinate(0, 0, 0);
 		public static double LightBrightness = 1;
-		public static double ShadowMinStep = 0.25;
+		public static double ShadowMinStep = 0.01;
 
 		public static void DefaultSettings(Form1 form) // Стандартные настройки
 		{
@@ -27,17 +28,17 @@ namespace RayMarching
 			LightingPosition.z = 5;
 			LightBrightness = 1;
 
-			ShadowMinStep = 0.25;
+			ShadowMinStep = 0.01;
 
 			form.MaxIterationNumericUpDown.Value = 50;
 			form.MinDistNumericUpDown.Value = 0.001m;
 
+			form.OrRadioButton.Checked = true;
+			form.AndRadioButton.Checked = false;
+
 			form.AmbientOcclusionCheckBox.Checked = false;
 			form.LightingCheckBox.Checked = true;
 			form.ShadowsCheckBox.Checked = true;
-
-			form.OrRadioButton.Checked = true;
-			form.AndRadioButton.Checked = false;
 
 			Form1.objectList.Clear();
 			form.RMObjectListBox.Items.Clear();
@@ -91,12 +92,18 @@ namespace RayMarching
 					string[] obj = Settings[objString].Split('#');
 					if (obj[0] == "Sphere")
 						form.objectListAdd = new Sphere(double.Parse(obj[1]), double.Parse(obj[2]), double.Parse(obj[3]), int.Parse(obj[4]), int.Parse(obj[5]), int.Parse(obj[6]), double.Parse(obj[7]));
+					else if (obj[0] == "Cube")
+						form.objectListAdd = new Cube(double.Parse(obj[1]), double.Parse(obj[2]), double.Parse(obj[3]), int.Parse(obj[4]), int.Parse(obj[5]), int.Parse(obj[6]), double.Parse(obj[7]));
 					else
-						throw new System.ArgumentNullException("Error RMSettings.FromFile()");
+						throw new ArgumentNullException("Error RMSettings.FromFile()");
 				}
 			}
-			catch
+			catch (Exception e)
 			{
+				using (StreamWriter sw = new StreamWriter("Error.txt", true, Encoding.UTF8))
+				{
+					sw.WriteLine(DateTime.Now.ToString() + " " + e.Message);
+				}
 				DefaultSettings(form);
 				ToFile(form);
 			}
@@ -134,6 +141,111 @@ namespace RayMarching
 				for (int i = 0; i < Form1.objectList.Count; i++)
 					sw.WriteLine(Form1.objectList[i].ToFile(i));
 			}
+		}
+
+		public static void Preset(int id, Form1 form)
+		{
+			if (id == 0)
+			{
+				Camera.Position.x = 2.75;
+				Camera.Position.y = 4;
+				Camera.Position.z = 1;
+
+				Camera.LookAt.x = 2;
+				Camera.LookAt.y = 1;
+				Camera.LookAt.z = 2;
+
+				LightingPosition.x = 0;
+				LightingPosition.y = 5;
+				LightingPosition.z = 5;
+				LightBrightness = 1;
+
+				ShadowMinStep = 0.01;
+
+				form.MaxIterationNumericUpDown.Value = 50;
+				form.MinDistNumericUpDown.Value = 0.001m;
+
+				form.OrRadioButton.Checked = false;
+				form.AndRadioButton.Checked = true;
+
+				form.AmbientOcclusionCheckBox.Checked = false;
+				form.LightingCheckBox.Checked = true;
+				form.ShadowsCheckBox.Checked = true;
+
+				Form1.objectList.Clear();
+				form.RMObjectListBox.Items.Clear();
+				form.objectListAdd = new Sphere(1, 1, 2, 0, 111, 0, 1.25);
+				form.objectListAdd = new Sphere(2, 1, 3, 0, 0, 111, 1.25);
+				form.objectListAdd = new Sphere(3, 1, 2, 111, 111, 111, 1.25);
+				form.objectListAdd = new Sphere(2, 1, 1, 111, 0, 0, 1.25);
+			}
+			else if (id == 1)
+			{
+				Camera.Position.x = 6;
+				Camera.Position.y = 5;
+				Camera.Position.z = 3;
+
+				Camera.LookAt.x = 5.5;
+				Camera.LookAt.y = 1;
+				Camera.LookAt.z = 5.5;
+
+				LightingPosition.x = 0;
+				LightingPosition.y = 5;
+				LightingPosition.z = 5;
+				LightBrightness = 1;
+
+				ShadowMinStep = 0.01;
+
+				form.MaxIterationNumericUpDown.Value = 50;
+				form.MinDistNumericUpDown.Value = 0.001m;
+
+				form.OrRadioButton.Checked = false;
+				form.AndRadioButton.Checked = true;
+
+				form.AmbientOcclusionCheckBox.Checked = false;
+				form.LightingCheckBox.Checked = true;
+				form.ShadowsCheckBox.Checked = true;
+
+				Form1.objectList.Clear();
+				form.RMObjectListBox.Items.Clear();
+				form.objectListAdd = new Sphere(2, 1, 2, 0, 111, 0, -5);
+				form.objectListAdd = new Sphere(5, 1.5, 5, 0, 0, 0, 1.5);
+			}
+			else if (id == 2)
+			{
+				Camera.Position.x = 2.5;
+				Camera.Position.y = 1.5;
+				Camera.Position.z = -0.5;
+
+				Camera.LookAt.x = 3;
+				Camera.LookAt.y = 1;
+				Camera.LookAt.z = 3;
+
+				LightingPosition.x = 3;
+				LightingPosition.y = 3;
+				LightingPosition.z = 3;
+				LightBrightness = 1;
+
+				ShadowMinStep = 1E-08;
+
+				form.MaxIterationNumericUpDown.Value = 150;
+				form.MinDistNumericUpDown.Value = 0.001m;
+
+				form.OrRadioButton.Checked = false;
+				form.AndRadioButton.Checked = true;
+
+				form.AmbientOcclusionCheckBox.Checked = true;
+				form.LightingCheckBox.Checked = false;
+				form.ShadowsCheckBox.Checked = true;
+
+				Form1.objectList.Clear();
+				form.RMObjectListBox.Items.Clear();
+				form.objectListAdd = new Cube(3, 1, 3, 255, 255, 255, 1);
+				form.objectListAdd = new Sphere(3, 1, 3, 0, 111, 0, -1.35);
+				form.objectListAdd = new Sphere(3, 1, 3, 0, 255, 255, 1.4);
+			}
+			else
+				throw new ArgumentNullException($"Error RMSettings.Preset({id}, form)");
 		}
 	}
 }

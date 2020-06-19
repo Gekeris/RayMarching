@@ -25,7 +25,12 @@ namespace RayMarching
 			if (Form1.objectList[index].GetType().Name == "Sphere")
 			{
 				label7.Text = "Radius: ";
-				numericUpDown1.Value = Convert.ToDecimal(((Sphere) Form1.objectList[index]).radius);
+				numericUpDown1.Value = Convert.ToDecimal(((Sphere) Form1.objectList[index]).Radius);
+			}
+			else if (Form1.objectList[index].GetType().Name == "Cube")
+			{
+				label7.Text = "Size: ";
+				numericUpDown1.Value = Convert.ToDecimal(((Cube) Form1.objectList[index]).Size);
 			}
 			else
 				throw new ArgumentNullException("Error objectListSettingsForm.objectListSettingsForm_Load()");
@@ -40,7 +45,9 @@ namespace RayMarching
 			Form1.objectList[index].color = Color.FromArgb(Convert.ToInt32(ColorRedNumericUpDown.Value), Convert.ToInt32(ColorGreenNumericUpDown.Value), Convert.ToInt32(ColorBlueNumericUpDown.Value));
 
 			if (Form1.objectList[index].GetType().Name == "Sphere")
-				((Sphere) Form1.objectList[index]).radius = Convert.ToDouble(numericUpDown1.Value);
+				((Sphere) Form1.objectList[index]).Radius = Convert.ToDouble(numericUpDown1.Value);
+			else if (Form1.objectList[index].GetType().Name == "Cube")
+				((Cube) Form1.objectList[index]).Size = Convert.ToDouble(numericUpDown1.Value);
 			else
 				throw new ArgumentNullException("Error objectListSettingsForm.SaveButton_Click()");
 			Close();

@@ -49,6 +49,8 @@
 			this.ShadowsCheckBox = new System.Windows.Forms.CheckBox();
 			this.LightingButton = new System.Windows.Forms.Button();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.PresetComboBox = new System.Windows.Forms.ComboBox();
+			this.PresetButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.Camera1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MaxIterationNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MinDistNumericUpDown)).BeginInit();
@@ -134,10 +136,10 @@
             262144});
 			this.MinDistNumericUpDown.Location = new System.Drawing.Point(752, 86);
 			this.MinDistNumericUpDown.Maximum = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
-            196608});
+            0});
 			this.MinDistNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -241,7 +243,8 @@
 			// 
 			this.AddObjectComboBox.FormattingEnabled = true;
 			this.AddObjectComboBox.Items.AddRange(new object[] {
-            "Sphere"});
+            "Sphere",
+            "Cube"});
 			this.AddObjectComboBox.Location = new System.Drawing.Point(727, 207);
 			this.AddObjectComboBox.Name = "AddObjectComboBox";
 			this.AddObjectComboBox.Size = new System.Drawing.Size(121, 21);
@@ -298,11 +301,35 @@
 			this.progressBar1.Size = new System.Drawing.Size(640, 23);
 			this.progressBar1.TabIndex = 39;
 			// 
+			// PresetComboBox
+			// 
+			this.PresetComboBox.FormattingEnabled = true;
+			this.PresetComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
+			this.PresetComboBox.Location = new System.Drawing.Point(752, 169);
+			this.PresetComboBox.Name = "PresetComboBox";
+			this.PresetComboBox.Size = new System.Drawing.Size(32, 21);
+			this.PresetComboBox.TabIndex = 40;
+			// 
+			// PresetButton
+			// 
+			this.PresetButton.Location = new System.Drawing.Point(790, 168);
+			this.PresetButton.Name = "PresetButton";
+			this.PresetButton.Size = new System.Drawing.Size(82, 23);
+			this.PresetButton.TabIndex = 41;
+			this.PresetButton.Text = "Load Preset";
+			this.PresetButton.UseVisualStyleBackColor = true;
+			this.PresetButton.Click += new System.EventHandler(this.PresetButton_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(884, 480);
+			this.Controls.Add(this.PresetButton);
+			this.Controls.Add(this.PresetComboBox);
 			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.LightingButton);
 			this.Controls.Add(this.ShadowsCheckBox);
@@ -361,6 +388,8 @@
 		public System.Windows.Forms.CheckBox ShadowsCheckBox;
 		private System.Windows.Forms.Button LightingButton;
 		private System.Windows.Forms.ProgressBar progressBar1;
+		private System.Windows.Forms.ComboBox PresetComboBox;
+		private System.Windows.Forms.Button PresetButton;
 	}
 }
 

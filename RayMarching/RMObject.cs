@@ -42,28 +42,65 @@ namespace RayMarching
 
 	class Sphere : RMObject
 	{
-		public double radius;
+		public double Radius;
 		public Sphere(double x, double y, double z, int red, int green, int blue, double radius)
 		{
 			Position = new Coordinate(x, y, z);
 			color = Color.FromArgb(red, green, blue);
-			this.radius = radius;
+			Radius = radius;
 		}
 		public override double GetDist(Coordinate coordinate)
 		{
-			if (radius >= 0)
-				distance = Coordinate.CoordGetDist(coordinate, Position) - radius;
+			if (Radius >= 0)
+				distance = Coordinate.CoordGetDist(coordinate, Position) - Radius;
 			else
-				distance = -1 * Coordinate.CoordGetDist(coordinate, Position) - radius;
+				distance = -1 * Coordinate.CoordGetDist(coordinate, Position) - Radius;
 			return distance;
 		}
 		public override string ToFile(int num)
 		{
-			return $"object{num}=Sphere#{Position.x}#{Position.y}#{Position.z}#{color.R}#{color.G}#{color.B}#{radius}";
+			return $"object{num}=Sphere#{Position.x}#{Position.y}#{Position.z}#{color.R}#{color.G}#{color.B}#{Radius}";
 		}
 		public override string ToListBox(int num)
 		{
 			return $"object{num}=Sphere [x = {Position.x}, y = {Position.y}, z = {Position.z}]";
+		}
+	}
+
+	public class Cube : RMObject
+	{
+		public double Size;
+		public Cube(double x, double y, double z, int red, int green, int blue, double size)
+		{
+			Position = new Coordinate(x, y, z);
+			color = Color.FromArgb(red, green, blue);
+			Size = size;
+		}
+		public override double GetDist(Coordinate p)
+		{
+			Vector q = new Vector
+			(
+				Math.Abs(p.x - Position.x) - Size,
+				Math.Abs(p.y - Position.y) - Size,
+				Math.Abs(p.z - Position.z) - Size
+			);
+			Vector temp = new Vector
+			(
+				Math.Max(0, q.x),
+				Math.Max(0, q.y),
+				Math.Max(0, q.z)
+			);
+
+			distance = Vector.length(temp) + Math.Min(0, Math.Max(q.x, Math.Max(q.y, q.z)));
+			return distance;
+		}
+		public override string ToFile(int num)
+		{
+			return $"object{num}=Cube#{Position.x}#{Position.y}#{Position.z}#{color.R}#{color.G}#{color.B}#{Size}";
+		}
+		public override string ToListBox(int num)
+		{
+			return $"object{num}=Cube [x = {Position.x}, y = {Position.y}, z = {Position.z}]";
 		}
 	}
 }

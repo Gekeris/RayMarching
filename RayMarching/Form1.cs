@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Text;
 
 namespace RayMarching
 {
@@ -28,6 +27,7 @@ namespace RayMarching
 		{
 			progressBar1.Maximum = Camera.Height;
 			AddObjectComboBox.SelectedIndex = 0;
+			PresetComboBox.SelectedIndex = 0;
 			objectList = new List<RMObject>();
 			ResetSettings(sender, e); // Загрузить настройки с файла
 			UpdateCamera(sender, e); // Отрисовка камеры 
@@ -95,7 +95,7 @@ namespace RayMarching
 			{
 				object obj = GetDist(rayCoord, true); // Узнать расстояние до ближайшего объекта
 				if (obj.GetType().Name == "Color") // Если GetMinDist вернула цвет, значит произошло касание с объектом
-					return ChangeColor((Color) obj, Convert.ToDouble(i / MaxIterationNumericUpDown.Value), rayCoord,x,y);
+					return ChangeColor((Color) obj, Convert.ToDouble(i / MaxIterationNumericUpDown.Value), rayCoord);
 				else // Если GetMinDist вернул число, умножаем вектор на него
 					rayCoord += rayVector * (double) obj;
 				if (i == MaxIterationNumericUpDown.Value) // Если количество итераций равно максимуму
@@ -132,7 +132,7 @@ namespace RayMarching
 			return obj.distance;
 		}
 
-		private Color ChangeColor(Color color, double per, Coordinate coord,int x, int y)
+		private Color ChangeColor(Color color, double per, Coordinate coord)
 		{
 			if (AmbientOcclusionCheckBox.Checked)
 			{
@@ -149,7 +149,7 @@ namespace RayMarching
 					dist - (double) GetDist(new Coordinate(coord.x, coord.y, coord.z - minDist), false)
 				));
 				Vector li = Vector.Normalize(Vector.GetVect(coord, RMSettings.LightingPosition));
-				double scalar = (Vector.Scalar(n, li) + 1) / 2;
+				double scalar = (Vector.Scalar(n, li) + 3) / 4;
 				scalar *= scalar;
 				color = Color.FromArgb(LightCol(color.R), LightCol(color.G), LightCol(color.B));
 				int LightCol(int ColorNum)
@@ -184,7 +184,7 @@ namespace RayMarching
 					else
 					{
 						Vector v = Vector.Normalize(Vector.GetVect(c, RMSettings.LightingPosition));
-						c +=  v * DistToAnyObject;
+						c += v * DistToAnyObject;
 					}
 				}
 			}
@@ -253,7 +253,7 @@ namespace RayMarching
 					myform.index = index;
 					myform.ShowDialog();
 					RMObjectListBox.Items.Clear();
-					for(int i = 0; i < objectList.Count; i++)
+					for (int i = 0; i < objectList.Count; i++)
 						RMObjectListBox.Items.Add(objectList[i].ToListBox(i));
 				}
 			}
@@ -262,8 +262,10 @@ namespace RayMarching
 		private void AddObjectButton_Click(object sender, EventArgs e)
 		{
 			RMSettings.SettingsEdit = true;
-			if(AddObjectComboBox.SelectedItem.ToString() == "Sphere")
+			if (AddObjectComboBox.SelectedItem.ToString() == "Sphere")
 				objectListAdd = new Sphere(0, 0, 0, 0, 0, 0, 1);
+			else if (AddObjectComboBox.SelectedItem.ToString() == "Cube")
+				objectListAdd = new Cube(0, 0, 0, 0, 0, 0, 1);
 			else
 				throw new ArgumentNullException("Error Form1.AddObjectButton_Click()");
 
@@ -284,6 +286,13 @@ namespace RayMarching
 				myform.Shadow = ShadowsCheckBox.Checked;
 				myform.ShowDialog();
 			}
+		}
+
+		private void PresetButton_Click(object sender, EventArgs e)
+		{
+			RMSettings.SettingsEdit = true;
+			RMSettings.Preset(PresetComboBox.SelectedIndex, this);
+			UpdateCamera(sender, e);
 		}
 	}
 }

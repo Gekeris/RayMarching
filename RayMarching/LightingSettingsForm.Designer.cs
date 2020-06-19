@@ -226,12 +226,12 @@
 			// 
 			// ShadowMinStepNumericUpDown
 			// 
-			this.ShadowMinStepNumericUpDown.DecimalPlaces = 2;
+			this.ShadowMinStepNumericUpDown.DecimalPlaces = 8;
 			this.ShadowMinStepNumericUpDown.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            65536});
+            131072});
 			this.ShadowMinStepNumericUpDown.Location = new System.Drawing.Point(62, 170);
 			this.ShadowMinStepNumericUpDown.Maximum = new decimal(new int[] {
             1,
@@ -242,7 +242,7 @@
             1,
             0,
             0,
-            65536});
+            524288});
 			this.ShadowMinStepNumericUpDown.Name = "ShadowMinStepNumericUpDown";
 			this.ShadowMinStepNumericUpDown.Size = new System.Drawing.Size(120, 20);
 			this.ShadowMinStepNumericUpDown.TabIndex = 9;
@@ -250,7 +250,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
 			this.ShadowMinStepNumericUpDown.ValueChanged += new System.EventHandler(this.SettingEdit);
 			// 
 			// label5
