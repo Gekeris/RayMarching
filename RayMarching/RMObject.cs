@@ -78,12 +78,21 @@ namespace RayMarching
 		}
 		public override double GetDist(Coordinate p)
 		{
-			Vector q = new Vector
-			(
-				Math.Abs(p.x - Position.x) - Size,
-				Math.Abs(p.y - Position.y) - Size,
-				Math.Abs(p.z - Position.z) - Size
-			);
+			Vector q;
+			if (Size >= 0)
+				q = new Vector
+				(
+					Math.Abs(p.x - Position.x) - Size,
+					Math.Abs(p.y - Position.y) - Size,
+					Math.Abs(p.z - Position.z) - Size
+				);
+			else
+				q = new Vector
+				(
+					Math.Abs(p.x - Position.x) + Size,
+					Math.Abs(p.y - Position.y) + Size,
+					Math.Abs(p.z - Position.z) + Size
+				);
 			Vector temp = new Vector
 			(
 				Math.Max(0, q.x),
@@ -92,6 +101,8 @@ namespace RayMarching
 			);
 
 			distance = Vector.length(temp) + Math.Min(0, Math.Max(q.x, Math.Max(q.y, q.z)));
+			if (Size < 0)
+				distance *= -1;
 			return distance;
 		}
 		public override string ToFile(int num)

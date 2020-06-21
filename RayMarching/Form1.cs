@@ -154,10 +154,17 @@ namespace RayMarching
 				color = Color.FromArgb(LightCol(color.R), LightCol(color.G), LightCol(color.B));
 				int LightCol(int ColorNum)
 				{
-					int ret = Convert.ToInt32(ColorNum * scalar * RMSettings.LightBrightness);
-					if (ret > 255)
-						ret = 255;
-					return ret;
+					try
+					{
+						int ret = Convert.ToInt32(ColorNum * scalar * RMSettings.LightBrightness);
+						if (ret > 255)
+							ret = 255;
+						return ret;
+					}
+					catch
+					{
+						return 0;
+					}
 				}
 			}
 			if (ShadowsCheckBox.Checked)
