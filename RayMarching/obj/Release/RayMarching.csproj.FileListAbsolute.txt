@@ -1,0 +1,13 @@
+D:\Visual Studio\RayMarching\RayMarching\bin\Release\RayMarching.exe.config
+D:\Visual Studio\RayMarching\RayMarching\bin\Release\RayMarching.exe
+D:\Visual Studio\RayMarching\RayMarching\bin\Release\RayMarching.pdb
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.csprojAssemblyReference.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.CameraSettingsForm.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.Form1.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.LightingSettingsForm.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.objectListSettingsForm.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.Properties.Resources.resources
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.csproj.GenerateResource.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.csproj.CoreCompileInputs.cache
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.exe
+D:\Visual Studio\RayMarching\RayMarching\obj\Release\RayMarching.pdb

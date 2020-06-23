@@ -10,7 +10,7 @@ namespace RayMarching
 			InitializeComponent();
 		}
 
-		private void CameraSettingsForm_Load(object sender, EventArgs e)
+		private void CameraSettingsForm_Load(object sender, EventArgs e) // Загрузка текущих настроек камеры
 		{
 			PositionXNumericUpDown.Value = Convert.ToDecimal(Camera.Position.x);
 			PositionYNumericUpDown.Value = Convert.ToDecimal(Camera.Position.y);
@@ -21,7 +21,7 @@ namespace RayMarching
 			LookAtZNumericUpDown.Value = Convert.ToDecimal(Camera.LookAt.z);
 		}
 
-		private void ApplyButton_Click(object sender, EventArgs e)
+		private void ApplyButton_Click(object sender, EventArgs e) // Если пользователь решил сохранить настройки
 		{
 			Camera.Position.x = Convert.ToDouble(PositionXNumericUpDown.Value);
 			Camera.Position.y = Convert.ToDouble(PositionYNumericUpDown.Value);
@@ -33,12 +33,12 @@ namespace RayMarching
 			Close();
 		}
 
-		private void CancelButton_Click(object sender, EventArgs e)
+		private void CancelButton_Click(object sender, EventArgs e) // Закрыть форму без сохранения настроек
 		{
 			Close();
 		}
 
-		private void SettingsEdit(object sender, EventArgs e)
+		private void SettingsEdit(object sender, EventArgs e) // Если были изменения настроек, предложить во время закрытия программы сохранить их
 		{
 			RMSettings.SettingsEdit = true;
 		}

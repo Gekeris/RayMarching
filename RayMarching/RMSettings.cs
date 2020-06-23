@@ -9,9 +9,9 @@ namespace RayMarching
 	{
 		public static bool SettingsEdit; // Изменялись ли настройки
 
-		public static Coordinate LightingPosition = new Coordinate(0, 0, 0);
-		public static double LightBrightness = 1;
-		public static double ShadowMinStep = 0.01;
+		public static Coordinate LightingPosition = new Coordinate(0, 0, 0); // Позиция света
+		public static double LightBrightness = 1; // Яркость
+		public static double ShadowMinStep = 0.01; // Минимальный шаг луча проверки на тень
 
 		public static void DefaultSettings(Form1 form) // Стандартные настройки
 		{
@@ -84,12 +84,13 @@ namespace RayMarching
 				Form1.objectList.Clear();
 				form.RMObjectListBox.Items.Clear();
 
-				for (int i = 0; true; i++)
+				for (int i = 0; true; i++) // Загрузка объектов из файла
 				{
-					string objString = "object" + i;
+					string objString = "object" + i; // Ключь поиска в словаре
 					if (!Settings.ContainsKey(objString))
 						break;
 					string[] obj = Settings[objString].Split('#');
+					// Добавление объектов в 
 					if (obj[0] == "Sphere")
 						form.objectListAdd = new Sphere(double.Parse(obj[1]), double.Parse(obj[2]), double.Parse(obj[3]), int.Parse(obj[4]), int.Parse(obj[5]), int.Parse(obj[6]), double.Parse(obj[7]));
 					else if (obj[0] == "Cube")
@@ -98,12 +99,8 @@ namespace RayMarching
 						throw new ArgumentNullException("Error RMSettings.FromFile()");
 				}
 			}
-			catch (Exception e)
+			catch
 			{
-				using (StreamWriter sw = new StreamWriter("Error.txt", true, Encoding.UTF8))
-				{
-					sw.WriteLine(DateTime.Now.ToString() + " " + e.Message);
-				}
 				DefaultSettings(form);
 				ToFile(form);
 			}
@@ -143,7 +140,7 @@ namespace RayMarching
 			}
 		}
 
-		public static void Preset(int id, Form1 form)
+		public static void Preset(int id, Form1 form) // Пресеты
 		{
 			if (id == 0)
 			{

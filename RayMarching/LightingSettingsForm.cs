@@ -9,8 +9,8 @@ namespace RayMarching
 		{
 			InitializeComponent();
 		}
-		public bool Shadow = false;
-		private void LightingSettingsForm_Load(object sender, EventArgs e)
+		public bool Shadow = false; // Разрешить редактировать минимальный шаг тени, если отрисовка тени включена
+		private void LightingSettingsForm_Load(object sender, EventArgs e) // загрузка настроек позиции и параметров света
 		{
 			PositionXNumericUpDown.Value = Convert.ToDecimal(RMSettings.LightingPosition.x);
 			PositionYNumericUpDown.Value = Convert.ToDecimal(RMSettings.LightingPosition.y);
@@ -20,7 +20,7 @@ namespace RayMarching
 			ShadowMinStepNumericUpDown.Enabled = Shadow;
 		}
 
-		private void ApplyButton_Click(object sender, EventArgs e)
+		private void ApplyButton_Click(object sender, EventArgs e) // сохранить настройки позиции и параметров света
 		{
 			RMSettings.LightingPosition.x = Convert.ToDouble(PositionXNumericUpDown.Value);
 			RMSettings.LightingPosition.y = Convert.ToDouble(PositionYNumericUpDown.Value);
@@ -30,12 +30,12 @@ namespace RayMarching
 			Close();
 		}
 
-		private void CancelButton1_Click(object sender, EventArgs e)
+		private void CancelButton1_Click(object sender, EventArgs e) // Закрыть форму без сохранения изменений 
 		{
 			Close();
 		}
 
-		private void SettingEdit(object sender, EventArgs e)
+		private void SettingEdit(object sender, EventArgs e) // Если были изменения настроек, предложить во время закрытия программы сохранить их
 		{
 			RMSettings.SettingsEdit = true;
 		}

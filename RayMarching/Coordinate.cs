@@ -20,7 +20,7 @@
 			return newCoord;
 		}
 
-		public static double CoordGetDist(Coordinate coordinate1, Coordinate coordinate2)
+		public static double CoordGetDist(Coordinate coordinate1, Coordinate coordinate2) // Расстояние между двумя точками
 		{
 			return Vector.length(Vector.GetVect(coordinate1, coordinate2));
 		}

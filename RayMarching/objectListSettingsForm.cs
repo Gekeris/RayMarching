@@ -6,13 +6,13 @@ namespace RayMarching
 {
 	public partial class objectListSettingsForm : Form
 	{
-		public int index = -1;
+		public int index = -1; // Индекс открываемого объекта
 		public objectListSettingsForm()
 		{
 			InitializeComponent();
 		}
 
-		private void objectListSettingsForm_Load(object sender, EventArgs e)
+		private void objectListSettingsForm_Load(object sender, EventArgs e) // Загрузка текущих настроек объекта
 		{
 			PositionXNumericUpDown.Value = Convert.ToDecimal(Form1.objectList[index].Position.x);
 			PositionYNumericUpDown.Value = Convert.ToDecimal(Form1.objectList[index].Position.y);
@@ -22,7 +22,7 @@ namespace RayMarching
 			ColorGreenNumericUpDown.Value = Convert.ToDecimal(Form1.objectList[index].color.G);
 			ColorBlueNumericUpDown.Value = Convert.ToDecimal(Form1.objectList[index].color.B);
 
-			if (Form1.objectList[index].GetType().Name == "Sphere")
+			if (Form1.objectList[index].GetType().Name == "Sphere") // Изменить label в зависимости от типа объекта
 			{
 				label7.Text = "Radius: ";
 				numericUpDown1.Value = Convert.ToDecimal(((Sphere) Form1.objectList[index]).Radius);
@@ -36,7 +36,7 @@ namespace RayMarching
 				throw new ArgumentNullException("Error objectListSettingsForm.objectListSettingsForm_Load()");
 		}
 
-		private void SaveButton_Click(object sender, EventArgs e)
+		private void SaveButton_Click(object sender, EventArgs e) // Если пользователь решил сохранить настройки
 		{
 			Form1.objectList[index].Position.x = Convert.ToDouble(PositionXNumericUpDown.Value);
 			Form1.objectList[index].Position.y = Convert.ToDouble(PositionYNumericUpDown.Value);
@@ -53,18 +53,18 @@ namespace RayMarching
 			Close();
 		}
 
-		private void RemoveButton_Click(object sender, EventArgs e)
+		private void RemoveButton_Click(object sender, EventArgs e) // Удалить объект из листа
 		{
 			Form1.objectList.RemoveAt(index);
 			Close();
 		}
 
-		private void CancelButton_Click(object sender, EventArgs e)
+		private void CancelButton_Click(object sender, EventArgs e) // закрыть настройки без сохранения изменений
 		{
 			Close();
 		}
 
-		private void SettingsEdit(object sender, EventArgs e)
+		private void SettingsEdit(object sender, EventArgs e) // Если были изменения настроек, предложить во время закрытия программы сохранить их
 		{
 			RMSettings.SettingsEdit = true;
 		}
