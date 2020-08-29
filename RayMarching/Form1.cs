@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RayMarching
 {
@@ -17,6 +19,8 @@ namespace RayMarching
 				objectList.Add(value); // Добавить объект в лист проверки
 			}
 		}
+
+		Floor floor = new Floor();
 
 		public Form1()
 		{
@@ -57,12 +61,39 @@ namespace RayMarching
 			RMSettings.DefaultSettings(this);
 		}
 
-		private void UpdateCamera(object sender, EventArgs e) // Отрисовка камеры
+		private async void UpdateCamera(object sender, EventArgs e) // Отрисовка камеры
 		{
+			ActiveAllControl(false);
 			progressBar1.Value = 0; // Обнулить прогресс
 			progressBar1.Visible = true; // Сделать прогресс отрисовки изображения видимым
-			Camera.Initialize(); // Создать базис
-			Camera1.Image = CreateBitmap(); // Отрисовка изображения камеры
+			await Task.Run(() =>
+			{
+				Camera.Initialize(); // Создать базис
+				Camera1.Image = CreateBitmap(); // Отрисовка изображения камеры
+			});
+		}
+
+		private void ActiveAllControl(bool enable)
+		{
+			UpdateButton.Enabled = enable;
+			SavePictureButton.Enabled = enable;
+			AndRadioButton.Enabled = enable;
+			OrRadioButton.Enabled = enable;
+			MaxIterationNumericUpDown.Enabled = enable;
+			MinDistNumericUpDown.Enabled = enable;
+			AmbientOcclusionCheckBox.Enabled = enable;
+			LightingCheckBox.Enabled = enable;
+			ShadowsCheckBox.Enabled = enable;
+			CameraSettingsButton.Enabled = enable;
+			LightingButton.Enabled = enable;
+			PresetButton.Enabled = enable;
+			PresetComboBox.Enabled = enable;
+			AddObjectButton.Enabled = enable;
+			AddObjectComboBox.Enabled = enable;
+			RMObjectListBox.Enabled = enable;
+			SaveButton.Enabled = enable;
+			ResetButton.Enabled = enable;
+			ResetToDefButton.Enabled = enable;
 		}
 
 		private Bitmap CreateBitmap() // Отрисовка изображения камеры
@@ -72,9 +103,13 @@ namespace RayMarching
 			{
 				for (int x = 0; x < Camera.Width; x++)
 					bitmap.SetPixel(x, y, RayRM(x, y));
-				progressBar1.Value++; // Увеличение прогресса
+				Invoke((Action) (() => progressBar1.Value++)); // Увеличение прогресса
 			}
-			progressBar1.Visible = false; // Отключить отображение прогресса отрисовки
+			Invoke((Action) (() =>
+			{
+				progressBar1.Visible = false; // Отключить отображение прогресса отрисовки
+				ActiveAllControl(true);
+			}));
 			return bitmap; // Возвращение карты
 		}
 
@@ -103,7 +138,6 @@ namespace RayMarching
 				i++;
 			}
 		}
-		Floor floor = new Floor();
 		private object GetDist(Coordinate coord, bool ReturnColor) // Расстояние до ближайшего объекта
 		{
 			RMObject obj;

@@ -50,7 +50,7 @@ namespace RayMarching
 			try
 			{
 				Dictionary<string, string> Settings = new Dictionary<string, string>(); // Словарь с настройками
-				using (StreamReader sr = new StreamReader("settings.txt", Encoding.UTF8))
+				using (StreamReader sr = new StreamReader("settings.ini", Encoding.UTF8))
 				{
 					string[] tempSettings = sr.ReadToEnd().Split(new char[] { '\r', '\n', '=' }, System.StringSplitOptions.RemoveEmptyEntries);  // Поделить файл по строкам и =
 					for (int i = 0; i < tempSettings.Length; i += 2) // Заполнение словаря. Первая строка название переменной (ключ), вторая значение в string
@@ -108,7 +108,7 @@ namespace RayMarching
 
 		public static void ToFile(Form1 form) // Записать настройки в файл
 		{
-			using (StreamWriter sw = new StreamWriter("settings.txt", false, Encoding.UTF8))
+			using (StreamWriter sw = new StreamWriter("settings.ini", false, Encoding.UTF8))
 			{
 				sw.WriteLine("CameraPositionX=" + Camera.Position.x);
 				sw.WriteLine("CameraPositionY=" + Camera.Position.y);
